@@ -6,3 +6,63 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+enum Role {
+  YOUTH
+  ORGANIZATION
+  TRAINING_PROVIDER
+  ADMIN
+}
+
+enum OrganizationType {
+  EMPLOYER
+  AGENCY
+  TRAINING_PROVIDER
+}
+
+enum ApprovalStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  passwordHash  String
+  name          String
+  role          Role      @default(YOUTH)
+  emailVerified DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  profile       Profile?
+  organization  Organization?
+  sectorFollows SectorFollow[]
+  progress      CourseProgress[]
+  savedListings SavedListing[]
+  reports       ListingReport[]
+}
+
+model Profile {
+  id        String   @id @default(cuid())
+  userId    String   @unique
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  district  String?
+  interests String?
+  skills    Skill[]
+  updatedAt DateTime @updatedAt
+}
+
+model Organization {
+  id        String           @id @default(cuid())
+  ownerId   String           @unique
+  owner     User             @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  name      String
+  type      OrganizationType
+  website   String?
+  status    ApprovalStatus   @default(PENDING)
+  createdAt DateTime         @default(now())
+
+  listings Listing[]
+}
