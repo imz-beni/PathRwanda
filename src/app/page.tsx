@@ -16,7 +16,10 @@ export default function Home() {
       </header>
       <ol className="grid gap-4 sm:grid-cols-2">
         {steps.map((step, i) => (
-          <li key={step.title} className="rounded-lg border border-zinc-200 p-4 dark:border-zinc-800">
+          <li
+            key={step.title}
+            className="rounded-lg border border-zinc-200 p-4 dark:border-zinc-800"
+          >
             <span className="text-sm text-zinc-500">Step {i + 1}</span>
             <h2 className="text-lg font-medium">{step.title}</h2>
             <p className="text-zinc-600 dark:text-zinc-400">{step.text}</p>
