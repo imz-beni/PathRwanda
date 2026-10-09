@@ -66,3 +66,90 @@ model Organization {
 
   listings Listing[]
 }
+
+enum SectorStatus {
+  LIVE
+  COMING_SOON
+}
+
+enum ProgressStatus {
+  STARTED
+  COMPLETED
+}
+
+model Sector {
+  id          String       @id @default(cuid())
+  slug        String       @unique
+  name        String
+  overview    String
+  status      SectorStatus @default(COMING_SOON)
+  sortOrder   Int          @default(0)
+
+  pathways CareerPathway[]
+  skills   Skill[]
+  courses  Course[]
+  follows  SectorFollow[]
+  listings ListingSector[]
+}
+
+model CareerPathway {
+  id          String  @id @default(cuid())
+  sectorId    String
+  sector      Sector  @relation(fields: [sectorId], references: [id], onDelete: Cascade)
+  title       String
+  description String
+  incomeNote  String?
+  skills      Skill[]
+
+  @@index([sectorId])
+}
+
+model Skill {
+  id        String          @id @default(cuid())
+  sectorId  String
+  sector    Sector          @relation(fields: [sectorId], references: [id], onDelete: Cascade)
+  name      String
+  pathways  CareerPathway[]
+  profiles  Profile[]
+  listings  Listing[]
+
+  @@unique([sectorId, name])
+}
+
+model Course {
+  id          String   @id @default(cuid())
+  sectorId    String
+  sector      Sector   @relation(fields: [sectorId], references: [id], onDelete: Cascade)
+  title       String
+  provider    String
+  url         String
+  description String?
+  isFree      Boolean  @default(true)
+  linkActive  Boolean  @default(true)
+  checkedAt   DateTime?
+
+  progress CourseProgress[]
+
+  @@index([sectorId])
+}
+
+model CourseProgress {
+  userId    String
+  courseId  String
+  user      User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  course    Course         @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  status    ProgressStatus
+  updatedAt DateTime       @updatedAt
+
+  @@id([userId, courseId])
+}
+
+model SectorFollow {
+  userId    String
+  sectorId  String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  sector    Sector   @relation(fields: [sectorId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@id([userId, sectorId])
+}
