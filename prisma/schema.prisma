@@ -78,12 +78,12 @@ enum ProgressStatus {
 }
 
 model Sector {
-  id          String       @id @default(cuid())
-  slug        String       @unique
-  name        String
-  overview    String
-  status      SectorStatus @default(COMING_SOON)
-  sortOrder   Int          @default(0)
+  id        String       @id @default(cuid())
+  slug      String       @unique
+  name      String
+  overview  String
+  status    SectorStatus @default(COMING_SOON)
+  sortOrder Int          @default(0)
 
   pathways CareerPathway[]
   skills   Skill[]
@@ -105,27 +105,27 @@ model CareerPathway {
 }
 
 model Skill {
-  id        String          @id @default(cuid())
-  sectorId  String
-  sector    Sector          @relation(fields: [sectorId], references: [id], onDelete: Cascade)
-  name      String
-  pathways  CareerPathway[]
-  profiles  Profile[]
-  listings  Listing[]
+  id       String          @id @default(cuid())
+  sectorId String
+  sector   Sector          @relation(fields: [sectorId], references: [id], onDelete: Cascade)
+  name     String
+  pathways CareerPathway[]
+  profiles Profile[]
+  listings Listing[]
 
   @@unique([sectorId, name])
 }
 
 model Course {
-  id          String   @id @default(cuid())
+  id          String    @id @default(cuid())
   sectorId    String
-  sector      Sector   @relation(fields: [sectorId], references: [id], onDelete: Cascade)
+  sector      Sector    @relation(fields: [sectorId], references: [id], onDelete: Cascade)
   title       String
   provider    String
   url         String
   description String?
-  isFree      Boolean  @default(true)
-  linkActive  Boolean  @default(true)
+  isFree      Boolean   @default(true)
+  linkActive  Boolean   @default(true)
   checkedAt   DateTime?
 
   progress CourseProgress[]
@@ -152,4 +152,77 @@ model SectorFollow {
   createdAt DateTime @default(now())
 
   @@id([userId, sectorId])
+}
+
+enum ListingType {
+  JOB
+  TRAINING
+  PROGRAM
+}
+
+enum ListingStatus {
+  ACTIVE
+  CLOSED
+  REMOVED
+}
+
+enum ReportStatus {
+  OPEN
+  RESOLVED
+  DISMISSED
+}
+
+model Listing {
+  id             String        @id @default(cuid())
+  organizationId String
+  organization   Organization  @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  title          String
+  type           ListingType
+  description    String
+  requirements   String?
+  location       String?
+  applyInfo      String
+  closesAt       DateTime
+  status         ListingStatus @default(ACTIVE)
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+
+  sectors ListingSector[]
+  skills  Skill[]
+  saves   SavedListing[]
+  reports ListingReport[]
+
+  @@index([status, closesAt])
+}
+
+model ListingSector {
+  listingId String
+  sectorId  String
+  listing   Listing @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  sector    Sector  @relation(fields: [sectorId], references: [id], onDelete: Cascade)
+
+  @@id([listingId, sectorId])
+}
+
+model SavedListing {
+  userId    String
+  listingId String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  listing   Listing  @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@id([userId, listingId])
+}
+
+model ListingReport {
+  id         String       @id @default(cuid())
+  listingId  String
+  reporterId String
+  listing    Listing      @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  reporter   User         @relation(fields: [reporterId], references: [id], onDelete: Cascade)
+  reason     String
+  status     ReportStatus @default(OPEN)
+  createdAt  DateTime     @default(now())
+
+  @@index([status])
 }
