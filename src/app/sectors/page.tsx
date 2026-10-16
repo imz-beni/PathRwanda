@@ -22,7 +22,9 @@ export default async function SectorsPage() {
               <span className="flex items-center justify-between gap-2">
                 <span className="text-lg font-medium">{sector.name}</span>
                 {sector.status === "COMING_SOON" && (
-                  <span className="rounded-full bg-zinc-100 px-2 py-0.5 text-xs dark:bg-zinc-800">Coming soon</span>
+                  <span className="rounded-full bg-zinc-100 px-2 py-0.5 text-xs dark:bg-zinc-800">
+                    Coming soon
+                  </span>
                 )}
               </span>
               <span className="text-sm text-zinc-600 dark:text-zinc-400">{sector.overview}</span>
