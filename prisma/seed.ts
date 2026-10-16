@@ -1,4 +1,5 @@
 import { PrismaClient, SectorStatus } from "@prisma/client";
+import bcrypt from "bcryptjs";
 
 const prisma = new PrismaClient();
 
@@ -85,10 +86,27 @@ const agritechCourses = [
   },
 ];
 
+async function seedAdmin() {
+  const email = process.env.ADMIN_EMAIL?.toLowerCase();
+  const password = process.env.ADMIN_PASSWORD;
+  if (!email || !password) {
+    console.log("ADMIN_EMAIL / ADMIN_PASSWORD not set, skipping admin account");
+    return;
+  }
+  const passwordHash = await bcrypt.hash(password, 12);
+  await prisma.user.upsert({
+    where: { email },
+    update: { role: "ADMIN", passwordHash },
+    create: { email, passwordHash, name: "Administrator", role: "ADMIN" },
+  });
+}
+
 async function main() {
   for (const s of sectors) {
     await prisma.sector.upsert({ where: { slug: s.slug }, update: s, create: s });
   }
+
+  await seedAdmin();
 
   const agritech = await prisma.sector.findUniqueOrThrow({ where: { slug: "agritech" } });
 
