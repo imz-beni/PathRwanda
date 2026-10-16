@@ -27,14 +27,15 @@ enum ApprovalStatus {
 }
 
 model User {
-  id            String    @id @default(cuid())
-  email         String    @unique
-  passwordHash  String
-  name          String
-  role          Role      @default(YOUTH)
-  emailVerified DateTime?
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  id             String    @id @default(cuid())
+  email          String    @unique
+  passwordHash   String
+  name           String
+  role           Role      @default(YOUTH)
+  emailVerified  DateTime?
+  ageConfirmedAt DateTime?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
 
   profile       Profile?
   organization  Organization?
@@ -42,6 +43,7 @@ model User {
   progress      CourseProgress[]
   savedListings SavedListing[]
   reports       ListingReport[]
+  sessions      Session[]
 }
 
 model Profile {
@@ -225,4 +227,15 @@ model ListingReport {
   createdAt  DateTime     @default(now())
 
   @@index([status])
+}
+
+model Session {
+  id        String   @id
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([expiresAt])
 }
