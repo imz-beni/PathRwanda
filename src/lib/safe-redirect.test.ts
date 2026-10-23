@@ -10,7 +10,7 @@ describe("safeNextPath", () => {
   it("falls back for external or malformed targets", () => {
     expect(safeNextPath("https://evil.example")).toBe("/sectors");
     expect(safeNextPath("//evil.example")).toBe("/sectors");
-    expect(safeNextPath("/\evil.example")).toBe("/sectors");
+    expect(safeNextPath("/\\evil.example")).toBe("/sectors");
     expect(safeNextPath(undefined)).toBe("/sectors");
     expect(safeNextPath("")).toBe("/sectors");
   });
