@@ -3,6 +3,8 @@ export const strings = {
   appName: "PathRwanda",
   nav: {
     sectors: "Sectors",
+    progress: "My progress",
+    profile: "My profile",
     dashboard: "Dashboard",
     admin: "Admin",
     login: "Log in",
