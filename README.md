@@ -29,6 +29,13 @@ The app runs at http://localhost:3000.
 - Passwords are hashed with bcrypt. Sessions are stored in the database and sent in an HTTP-only cookie.
 - `npm run db:seed` creates a development admin from `ADMIN_EMAIL` and `ADMIN_PASSWORD` in `.env`.
 
+## Learning features (Agritech)
+
+- Sector pages show career pathways, the skills they need, and links to external courses.
+- Young users can follow sectors, mark courses as started or completed, and pick the skills they have (`/profile`).
+- Course links go through `/go/course/[id]` so clicks can be counted. Follows, clicks and course changes are logged in the `Event` table for the MVP metrics.
+- Course links in `prisma/seed.ts` must be real and checked. Do not add URLs that have not been opened.
+
 ## Scripts
 
 | Script                                  | Purpose                             |
