@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { db } from "@/lib/db";
 import { verifyPassword } from "@/lib/auth/password";
 import { createSession, destroySession } from "@/lib/auth/session";
+import { safeNextPath } from "@/lib/safe-redirect";
 import { fieldErrors, loginSchema, type FieldErrors } from "@/lib/validation/auth";
 
 export type LoginState = {
@@ -34,7 +35,8 @@ export async function login(
   }
 
   await createSession(user.id);
-  redirect(user.role === "YOUTH" ? "/sectors" : "/dashboard");
+  const fallback = user.role === "YOUTH" ? "/sectors" : "/dashboard";
+  redirect(safeNextPath(raw.next, fallback));
 }
 
 export async function logout() {
