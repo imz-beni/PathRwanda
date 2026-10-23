@@ -40,33 +40,74 @@ const agritechSkills = [
   "Crop production",
   "Irrigation management",
   "Soil health",
+  "Pest and disease management",
+  "Greenhouse and horticulture",
   "Post-harvest handling",
+  "Food processing and safety",
   "Farm record keeping",
   "Agri-business basics",
+  "Market linkage and sales",
   "Basic data and mobile tools",
   "Drone operation",
+  "Training and communication",
 ];
 
+// Income is left empty until a reliable source is added (the SRS asks for income only where reliable).
 const agritechPathways = [
   {
     title: "Farm technician",
-    description: "Supports day-to-day crop production using improved inputs and irrigation.",
-    skills: ["Crop production", "Irrigation management", "Soil health"],
+    description: "Supports day-to-day crop production using improved seeds, inputs and irrigation.",
+    skills: [
+      "Crop production",
+      "Irrigation management",
+      "Soil health",
+      "Pest and disease management",
+    ],
   },
   {
-    title: "Post-harvest and value-addition officer",
-    description: "Reduces losses and adds value through storage, drying and processing.",
-    skills: ["Post-harvest handling", "Farm record keeping"],
+    title: "Horticulture and greenhouse grower",
+    description: "Grows vegetables, fruit or flowers in higher-value, more controlled conditions.",
+    skills: [
+      "Greenhouse and horticulture",
+      "Irrigation management",
+      "Pest and disease management",
+      "Market linkage and sales",
+    ],
+  },
+  {
+    title: "Post-harvest and storage officer",
+    description: "Reduces losses after harvest through drying, storage and handling.",
+    skills: ["Post-harvest handling", "Farm record keeping", "Food processing and safety"],
+  },
+  {
+    title: "Food processing technician",
+    description: "Turns farm produce into safe, packaged products that earn more.",
+    skills: ["Food processing and safety", "Post-harvest handling", "Farm record keeping"],
   },
   {
     title: "Agri-entrepreneur",
     description: "Runs a farm or agri-service business and sells to markets.",
-    skills: ["Agri-business basics", "Farm record keeping", "Basic data and mobile tools"],
+    skills: [
+      "Agri-business basics",
+      "Market linkage and sales",
+      "Farm record keeping",
+      "Basic data and mobile tools",
+    ],
   },
   {
     title: "Agri-drone operator",
-    description: "Uses drones for crop monitoring and spraying services.",
-    skills: ["Drone operation", "Basic data and mobile tools"],
+    description: "Uses drones for crop monitoring, mapping and spraying services.",
+    skills: ["Drone operation", "Basic data and mobile tools", "Crop production"],
+  },
+  {
+    title: "Farm advisor (extension assistant)",
+    description: "Helps farmers adopt better practices through training and field visits.",
+    skills: [
+      "Training and communication",
+      "Crop production",
+      "Soil health",
+      "Basic data and mobile tools",
+    ],
   },
 ];
 
