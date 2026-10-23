@@ -5,11 +5,12 @@ import { FormField } from "@/components/FormField";
 import { SubmitButton } from "@/components/SubmitButton";
 import { login } from "./actions";
 
-export function LoginForm() {
+export function LoginForm({ next }: { next?: string }) {
   const [state, action] = useActionState(login, undefined);
 
   return (
     <form action={action} className="flex flex-col gap-4" noValidate>
+      {next && <input type="hidden" name="next" value={next} />}
       {state?.message && (
         <p
           role="alert"
