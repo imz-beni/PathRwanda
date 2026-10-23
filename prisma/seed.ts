@@ -111,19 +111,39 @@ const agritechPathways = [
   },
 ];
 
-// Starter links point to provider catalogues. Vet and replace with specific courses before launch.
+// Links below were checked on 2026-10-23. Add more vetted courses over time; do not invent URLs.
 const agritechCourses = [
   {
-    title: "FAO eLearning Academy catalogue",
-    provider: "FAO",
-    url: "https://elearning.fao.org",
-    description: "Free courses on agriculture and food systems.",
+    title: "Implementation of Farmer Field School Programmes",
+    provider: "FAO eLearning Academy",
+    url: "https://elearning.fao.org/course/view.php?id=776",
+    description:
+      "Free online course on running farmer field schools, a group-learning approach to solving production problems. Needs a free FAO account.",
+    isFree: true,
   },
   {
-    title: "Introductory agriculture courses",
-    provider: "Coursera",
-    url: "https://www.coursera.org",
-    description: "Audit-for-free options available on many courses.",
+    title: "Browse all FAO eLearning courses",
+    provider: "FAO eLearning Academy",
+    url: "https://elearning.fao.org",
+    description:
+      "Free courses on agriculture and food systems. Some are written for professionals and advisors.",
+    isFree: true,
+  },
+  {
+    title: "Agriculture and food-processing programs",
+    provider: "Rwanda Polytechnic",
+    url: "https://www.rp.ac.rw",
+    description:
+      "TVET and higher-education programs, including agribusiness and food processing. Admission and fees apply.",
+    isFree: false,
+  },
+  {
+    title: "Extension services and farmer information",
+    provider: "Rwanda Agriculture Board (RAB)",
+    url: "https://www.rab.gov.rw",
+    description:
+      "Official source for farming guidance. Training is mainly delivered through extension officers and cooperatives, so ask your district agronomist.",
+    isFree: true,
   },
 ];
 
@@ -173,9 +193,19 @@ async function main() {
     });
   }
 
-  await prisma.course.deleteMany({ where: { sectorId: agritech.id, progress: { none: {} } } });
+  // Remove the earlier placeholder (a generic Coursera homepage link).
+  await prisma.course.deleteMany({
+    where: { sectorId: agritech.id, url: "https://www.coursera.org" },
+  });
   for (const c of agritechCourses) {
-    await prisma.course.create({ data: { ...c, sectorId: agritech.id } });
+    const existing = await prisma.course.findFirst({
+      where: { sectorId: agritech.id, url: c.url },
+    });
+    if (existing) {
+      await prisma.course.update({ where: { id: existing.id }, data: c });
+    } else {
+      await prisma.course.create({ data: { ...c, sectorId: agritech.id, checkedAt: new Date() } });
+    }
   }
 }
 
