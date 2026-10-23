@@ -44,6 +44,7 @@ model User {
   savedListings SavedListing[]
   reports       ListingReport[]
   sessions      Session[]
+  events        Event[]
 }
 
 model Profile {
@@ -238,4 +239,27 @@ model Session {
 
   @@index([userId])
   @@index([expiresAt])
+}
+
+enum EventType {
+  SECTOR_FOLLOWED
+  COURSE_LINK_CLICKED
+  COURSE_STARTED
+  COURSE_COMPLETED
+  MATCHED_LISTING_VIEWED
+}
+
+// Lightweight usage log used to measure the MVP hypothesis (follow / click-through / matched view).
+model Event {
+  id        String    @id @default(cuid())
+  type      EventType
+  userId    String?
+  user      User?     @relation(fields: [userId], references: [id], onDelete: SetNull)
+  sectorId  String?
+  courseId  String?
+  listingId String?
+  createdAt DateTime  @default(now())
+
+  @@index([type, createdAt])
+  @@index([userId])
 }
