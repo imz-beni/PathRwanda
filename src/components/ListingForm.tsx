@@ -72,8 +72,33 @@ function ErrorText({ messages }: { messages?: string[] }) {
   );
 }
 
-export function ListingForm({ action, sectors, defaults, submitLabel, originalClosesAt }: Props) {
-  const [state, formAction] = useActionState(action, undefined);
+// React resets an uncontrolled form after every action, which would drop the chosen type and sectors.
+// Re-mounting the form body whenever the server sends values back makes it start from those values.
+export function ListingForm(props: Props) {
+  const [state, formAction] = useActionState(props.action, undefined);
+  return (
+    <ListingFormBody
+      key={state ? JSON.stringify(state.values) : "initial"}
+      {...props}
+      state={state}
+      formAction={formAction}
+    />
+  );
+}
+
+type BodyProps = Props & {
+  state: ListingFormState | undefined;
+  formAction: (formData: FormData) => void;
+};
+
+function ListingFormBody({
+  state,
+  formAction,
+  sectors,
+  defaults,
+  submitLabel,
+  originalClosesAt,
+}: BodyProps) {
   const errors = state?.errors;
   const values = state?.values;
 
