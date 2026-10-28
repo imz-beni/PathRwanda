@@ -54,6 +54,7 @@ async function checkForm(formData: FormData, options: { requireFuture: boolean }
   });
   if (sectors.length !== data.sectorIds.length) {
     return {
+      ok: false as const,
       state: { errors: { sectorIds: ["Choose a valid sector."] }, values } as ListingFormState,
     };
   }
@@ -76,11 +77,8 @@ export async function createListing(
 ): Promise<ListingFormState> {
   const { organization } = await requireApprovedOrganization();
   const checked = await checkForm(formData, { requireFuture: true });
-  if ("state" in checked && checked.state) return checked.state;
-  const { data, sectorIds, skillIds } = checked as Exclude<
-    typeof checked,
-    { state: ListingFormState }
-  >;
+  if (!checked.ok) return checked.state;
+  const { data, sectorIds, skillIds } = checked;
 
   await db.listing.create({
     data: {
@@ -120,11 +118,8 @@ export async function updateListing(
   const dateChanged =
     String(formData.get("closesAt") ?? "") !== String(formData.get("originalClosesAt") ?? "");
   const checked = await checkForm(formData, { requireFuture: dateChanged });
-  if ("state" in checked && checked.state) return checked.state;
-  const { data, sectorIds, skillIds } = checked as Exclude<
-    typeof checked,
-    { state: ListingFormState }
-  >;
+  if (!checked.ok) return checked.state;
+  const { data, sectorIds, skillIds } = checked;
 
   await db.$transaction([
     db.listingSector.deleteMany({ where: { listingId: existing.id } }),
