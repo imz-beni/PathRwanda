@@ -19,6 +19,9 @@ export async function Header() {
           <Link href="/sectors" className={linkClass}>
             {nav.sectors}
           </Link>
+          <Link href="/opportunities" className={linkClass}>
+            {nav.opportunities}
+          </Link>
           {user?.role === "YOUTH" && (
             <>
               <Link href="/progress" className={linkClass}>
