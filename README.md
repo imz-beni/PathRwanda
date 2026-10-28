@@ -36,6 +36,14 @@ The app runs at http://localhost:3000.
 - Course links go through `/go/course/[id]` so clicks can be counted. Follows, clicks and course changes are logged in the `Event` table for the MVP metrics.
 - Course links in `prisma/seed.ts` must be real and checked. Do not add URLs that have not been opened.
 
+## Organizations and listings
+
+- Employers, agencies and training providers register like anyone else and start as `PENDING`. An admin approves them at `/admin/organizations`; only approved organizations can publish (`src/lib/auth/org.ts`).
+- Approved organizations manage listings at `/dashboard/listings`: create, edit, close, reopen and remove. Removing hides a listing everywhere but keeps the row so reports and history survive.
+- Every listing needs a type, at least one sector, how to apply, and a closing date. It closes at the end of that day in Rwanda time.
+- A listing counts as active only while it is published and its closing date is ahead (`src/lib/listings.ts`). Public pages filter on this at query time, so expired listings never appear as active even if nobody runs a cleanup.
+- Visitors browse open listings at `/opportunities` and can filter by sector, type, or search by title and place.
+
 ## Scripts
 
 | Script                                  | Purpose                             |
