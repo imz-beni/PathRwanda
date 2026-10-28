@@ -162,12 +162,95 @@ async function seedAdmin() {
   });
 }
 
+// Demo accounts for local testing only. They are created only when TEST_USER_PASSWORD is set,
+// so a production database never gets them unless someone sets that variable on purpose.
+async function seedTestUsers() {
+  const password = process.env.TEST_USER_PASSWORD;
+  if (!password) {
+    console.log("TEST_USER_PASSWORD not set, skipping demo accounts");
+    return;
+  }
+  const passwordHash = await bcrypt.hash(password, 12);
+  const agritech = await prisma.sector.findUniqueOrThrow({ where: { slug: "agritech" } });
+  const now = new Date();
+
+  const upsertUser = (
+    email: string,
+    name: string,
+    role: "YOUTH" | "ORGANIZATION" | "TRAINING_PROVIDER",
+  ) =>
+    prisma.user.upsert({
+      where: { email },
+      update: { passwordHash, role },
+      create: { email, name, role, passwordHash, ageConfirmedAt: now },
+    });
+
+  const youth = await upsertUser("youth.test@pathrwanda.local", "Demo Youth", "YOUTH");
+  await prisma.profile.upsert({
+    where: { userId: youth.id },
+    update: {},
+    create: { userId: youth.id },
+  });
+
+  const employer = await upsertUser(
+    "employer.test@pathrwanda.local",
+    "Demo Employer",
+    "ORGANIZATION",
+  );
+  const farms = await prisma.organization.upsert({
+    where: { ownerId: employer.id },
+    update: { status: "APPROVED" },
+    create: { ownerId: employer.id, name: "Demo Farms Ltd", type: "EMPLOYER", status: "APPROVED" },
+  });
+
+  const provider = await upsertUser(
+    "provider.test@pathrwanda.local",
+    "Demo Provider",
+    "TRAINING_PROVIDER",
+  );
+  await prisma.organization.upsert({
+    where: { ownerId: provider.id },
+    update: {},
+    create: {
+      ownerId: provider.id,
+      name: "Demo Training Centre",
+      type: "TRAINING_PROVIDER",
+      status: "PENDING",
+    },
+  });
+
+  const title = "Greenhouse assistant (demo)";
+  const existing = await prisma.listing.findFirst({ where: { organizationId: farms.id, title } });
+  const closesAt = new Date(now.getTime() + 90 * 24 * 60 * 60 * 1000);
+  if (existing) {
+    await prisma.listing.update({
+      where: { id: existing.id },
+      data: { closesAt, status: "ACTIVE" },
+    });
+  } else {
+    await prisma.listing.create({
+      data: {
+        organizationId: farms.id,
+        title,
+        type: "JOB",
+        description:
+          "Demo listing: help run a tomato greenhouse, including watering, picking and record keeping.",
+        applyInfo: "Demo only. There is nothing to apply for.",
+        location: "Musanze",
+        closesAt,
+        sectors: { create: [{ sectorId: agritech.id }] },
+      },
+    });
+  }
+}
+
 async function main() {
   for (const s of sectors) {
     await prisma.sector.upsert({ where: { slug: s.slug }, update: s, create: s });
   }
 
   await seedAdmin();
+  await seedTestUsers();
 
   const agritech = await prisma.sector.findUniqueOrThrow({ where: { slug: "agritech" } });
 
