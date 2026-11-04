@@ -19,17 +19,3 @@ export async function resolveReport(formData: FormData) {
 export async function dismissReport(formData: FormData) {
   await setStatus(formData, "DISMISSED");
 }
-
-// Removing hides the listing everywhere (the row stays for history) and closes every open report on it.
-export async function removeReportedListing(formData: FormData) {
-  await requireRole("ADMIN");
-  const listingId = String(formData.get("listingId") ?? "");
-  await db.$transaction([
-    db.listing.updateMany({ where: { id: listingId }, data: { status: "REMOVED" } }),
-    db.listingReport.updateMany({
-      where: { listingId, status: "OPEN" },
-      data: { status: "RESOLVED" },
-    }),
-  ]);
-  revalidatePath("/", "layout");
-}
