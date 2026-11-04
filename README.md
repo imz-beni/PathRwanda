@@ -44,6 +44,8 @@ The app runs at http://localhost:3000.
 - A listing counts as active only while it is published and its closing date is ahead (`src/lib/listings.ts`). Public pages filter on this at query time, so expired listings never appear as active even if nobody runs a cleanup.
 - Visitors browse open listings at `/opportunities` and can filter by sector, type, or search by title and place.
 - Signed-in users can report a listing from its page (one open report per person per listing). Admins work through reports at `/admin/reports`: remove the listing (which resolves all its open reports), mark a report resolved, or dismiss it.
+- Admins see every listing at `/admin/listings` and can remove one or restore a removed one. A restored listing comes back as closed, so it only goes public again when its organization reopens it.
+- Admins search users at `/admin/users` and can deactivate or reactivate accounts. A deactivated user is signed out at once and cannot log in; their data is kept. Admin accounts cannot be deactivated there. Deactivating an organization's owner does not hide its listings; reject the organization for that.
 
 ## Scripts
 
