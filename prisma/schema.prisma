@@ -34,6 +34,8 @@ model User {
   role           Role      @default(YOUTH)
   emailVerified  DateTime?
   ageConfirmedAt DateTime?
+  // Set by an admin to block sign-in; the account and its history are kept.
+  deactivatedAt  DateTime?
   createdAt      DateTime  @default(now())
   updatedAt      DateTime  @updatedAt
 
