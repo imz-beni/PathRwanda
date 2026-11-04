@@ -43,6 +43,7 @@ The app runs at http://localhost:3000.
 - Every listing needs a type, at least one sector, how to apply, and a closing date. It closes at the end of that day in Rwanda time.
 - A listing counts as active only while it is published and its closing date is ahead (`src/lib/listings.ts`). Public pages filter on this at query time, so expired listings never appear as active even if nobody runs a cleanup.
 - Visitors browse open listings at `/opportunities` and can filter by sector, type, or search by title and place.
+- Signed-in users can report a listing from its page (one open report per person per listing). Admins work through reports at `/admin/reports`: remove the listing (which resolves all its open reports), mark a report resolved, or dismiss it.
 
 ## Scripts
 
