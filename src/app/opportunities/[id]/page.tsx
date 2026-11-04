@@ -1,8 +1,10 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { db } from "@/lib/db";
+import { getCurrentUser } from "@/lib/auth/dal";
 import { displayStatus, formatDate } from "@/lib/listings";
 import { TYPE_LABEL } from "@/lib/validation/listing";
+import { ReportForm } from "./ReportForm";
 
 type Props = { params: Promise<{ id: string }> };
 
@@ -29,7 +31,7 @@ export async function generateMetadata({ params }: Props) {
 
 export default async function OpportunityPage({ params }: Props) {
   const { id } = await params;
-  const listing = await getListing(id);
+  const [listing, user] = await Promise.all([getListing(id), getCurrentUser()]);
   if (!listing) notFound();
 
   const status = displayStatus(listing);
@@ -87,6 +89,26 @@ export default async function OpportunityPage({ params }: Props) {
           <p className="whitespace-pre-line">{listing.applyInfo}</p>
         </section>
       )}
+
+      <details className="border-t border-zinc-200 pt-4 dark:border-zinc-800">
+        <summary className="cursor-pointer text-sm text-zinc-600 underline dark:text-zinc-400">
+          Report a problem with this opportunity
+        </summary>
+        <div className="mt-3">
+          {user ? (
+            <ReportForm listingId={listing.id} />
+          ) : (
+            <p className="text-sm">
+              <Link
+                href={`/login?next=${encodeURIComponent(`/opportunities/${listing.id}`)}`}
+                className="font-medium underline"
+              >
+                Log in to report this opportunity
+              </Link>
+            </p>
+          )}
+        </div>
+      </details>
     </main>
   );
 }
