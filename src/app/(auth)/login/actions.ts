@@ -33,6 +33,13 @@ export async function login(
   if (!user || !valid) {
     return { message: "The email or password is not correct. Please try again.", values };
   }
+  // Only said after a correct password, so it does not reveal which emails have accounts.
+  if (user.deactivatedAt) {
+    return {
+      message: "This account has been deactivated. Please contact the PathRwanda team.",
+      values,
+    };
+  }
 
   await createSession(user.id);
   const fallback = user.role === "YOUTH" ? "/sectors" : "/dashboard";

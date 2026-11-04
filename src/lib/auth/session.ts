@@ -31,7 +31,8 @@ export async function readSession() {
   });
   if (!session) return null;
 
-  if (session.expiresAt < new Date()) {
+  // A deactivated account loses any session it still has.
+  if (session.expiresAt < new Date() || session.user.deactivatedAt) {
     await db.session.delete({ where: { id: session.id } }).catch(() => {});
     return null;
   }
