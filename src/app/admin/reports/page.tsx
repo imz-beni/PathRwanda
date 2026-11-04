@@ -2,7 +2,8 @@ import Link from "next/link";
 import { db } from "@/lib/db";
 import { requireRole } from "@/lib/auth/dal";
 import { formatDate } from "@/lib/listings";
-import { dismissReport, removeReportedListing, resolveReport } from "./actions";
+import { removeListingAsAdmin } from "../listings/actions";
+import { dismissReport, resolveReport } from "./actions";
 
 export const metadata = { title: "Reported listings | PathRwanda" };
 
@@ -96,7 +97,7 @@ export default async function AdminReportsPage() {
               <div className="flex flex-wrap gap-2">
                 {report.listing.status !== "REMOVED" && (
                   <ActionButton
-                    action={removeReportedListing}
+                    action={removeListingAsAdmin}
                     name="listingId"
                     value={report.listing.id}
                     label="Remove listing"
