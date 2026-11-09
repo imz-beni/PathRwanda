@@ -35,6 +35,10 @@ The app runs at http://localhost:3000.
 - Young users can follow sectors, mark courses as started or completed, and pick the skills they have (`/profile`).
 - Course links go through `/go/course/[id]` so clicks can be counted. Follows, clicks and course changes are logged in the `Event` table for the MVP metrics.
 - Course links in `prisma/seed.ts` must be real and checked. Do not add URLs that have not been opened.
+- Admins edit sectors and courses at `/admin/sectors`: change a sector's name, overview and live/coming-soon status, and add, edit, hide, show or delete courses. Courses that learners have progress on can be hidden but not deleted.
+- "Re-check link" fetches a course address from the server. A clearly dead link (404, 410 or an unknown site) hides the course. If the site blocks the check or does not answer, nothing changes. A working link does not un-hide a course an admin hid.
+- Hidden courses disappear from sector and progress pages, and old `/go/course/...` links send people to the sector page instead.
+- `npm run db:seed` only adds starter content that is missing, so it never undoes admin edits. Use `npm run db:reset` for a fresh copy of the starter content.
 
 ## Organizations and listings
 
