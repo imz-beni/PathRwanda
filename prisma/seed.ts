@@ -245,8 +245,10 @@ async function seedTestUsers() {
 }
 
 async function main() {
+  // Starter content is only added when missing, so re-running the seed never undoes admin edits
+  // made at /admin/sectors.
   for (const s of sectors) {
-    await prisma.sector.upsert({ where: { slug: s.slug }, update: s, create: s });
+    await prisma.sector.upsert({ where: { slug: s.slug }, update: {}, create: s });
   }
 
   await seedAdmin();
@@ -262,8 +264,8 @@ async function main() {
     });
   }
 
-  await prisma.careerPathway.deleteMany({ where: { sectorId: agritech.id } });
-  for (const p of agritechPathways) {
+  const hasPathways = await prisma.careerPathway.count({ where: { sectorId: agritech.id } });
+  for (const p of hasPathways ? [] : agritechPathways) {
     await prisma.careerPathway.create({
       data: {
         sectorId: agritech.id,
@@ -281,12 +283,11 @@ async function main() {
     where: { sectorId: agritech.id, url: "https://www.coursera.org" },
   });
   for (const c of agritechCourses) {
+    // Matching on title too means a course whose address an admin changed is not added twice.
     const existing = await prisma.course.findFirst({
-      where: { sectorId: agritech.id, url: c.url },
+      where: { sectorId: agritech.id, OR: [{ url: c.url }, { title: c.title }] },
     });
-    if (existing) {
-      await prisma.course.update({ where: { id: existing.id }, data: c });
-    } else {
+    if (!existing) {
       await prisma.course.create({ data: { ...c, sectorId: agritech.id, checkedAt: new Date() } });
     }
   }
