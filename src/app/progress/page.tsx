@@ -13,7 +13,8 @@ export default async function ProgressPage() {
     db.sector.findMany({
       where: { status: "LIVE" },
       orderBy: { sortOrder: "asc" },
-      include: { courses: { orderBy: { title: "asc" } } },
+      // Hidden courses drop out of the totals; the learner's progress on them is kept.
+      include: { courses: { where: { linkActive: true }, orderBy: { title: "asc" } } },
     }),
     db.courseProgress.findMany({ where: { userId: user.id } }),
     db.sectorFollow.findMany({ where: { userId: user.id }, include: { sector: true } }),

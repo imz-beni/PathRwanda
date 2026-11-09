@@ -21,7 +21,8 @@ export default async function SectorPage({ params }: Props) {
     include: {
       pathways: { orderBy: { title: "asc" }, include: { skills: { orderBy: { name: "asc" } } } },
       skills: { orderBy: { name: "asc" } },
-      courses: { orderBy: [{ isFree: "desc" }, { title: "asc" }] },
+      // Hidden courses (broken links or hidden by an admin) are not shown to learners.
+      courses: { where: { linkActive: true }, orderBy: [{ isFree: "desc" }, { title: "asc" }] },
     },
   });
   if (!sector) notFound();
