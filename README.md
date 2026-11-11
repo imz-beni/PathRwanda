@@ -47,9 +47,11 @@ The app runs at http://localhost:3000.
 - Approved organizations manage listings at `/dashboard/listings`: create, edit, close, reopen and remove. Removing hides a listing everywhere but keeps the row so reports and history survive.
 - Every listing needs a type, at least one sector, how to apply, and a closing date. It closes at the end of that day in Rwanda time.
 - A listing counts as active only while it is published and its closing date is ahead (`src/lib/listings.ts`). Public pages filter on this at query time, so expired listings never appear as active even if nobody runs a cleanup.
-- Visitors browse open listings at `/opportunities` and can filter by sector, type, or search by title and place.
+- Visitors browse open listings at `/opportunities` and can filter by sector, type, or search by title and place. Results come 20 to a page.
 - Signed-in users can report a listing from its page (one open report per person per listing). Admins work through reports at `/admin/reports`: remove the listing (which resolves all its open reports), mark a report resolved, or dismiss it.
 - Admins see every listing at `/admin/listings` and can remove one or restore a removed one. A restored listing comes back as closed, so it only goes public again when its organization reopens it.
+- Admins add many listings at once at `/admin/listings/import`: pick an approved organization and upload a CSV file (a template is on the page). Rows follow the same rules as the listing form. If any row has a problem, nothing is imported and each problem is shown with its row number. A title the organization already uses is rejected, so the same file cannot be imported twice.
+- When `TEST_USER_PASSWORD` is set, `npm run db:seed` also adds four approved demo organizations and 20+ made-up Agritech listings (`prisma/demo-listings.ts`). Each one says it is a demo, so it cannot be mistaken for a real offer.
 - Admins search users at `/admin/users` and can deactivate or reactivate accounts. A deactivated user is signed out at once and cannot log in; their data is kept. Admin accounts cannot be deactivated there. Deactivating an organization's owner does not hide its listings; reject the organization for that.
 
 ## Scripts
