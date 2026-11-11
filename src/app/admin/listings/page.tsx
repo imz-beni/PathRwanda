@@ -95,7 +95,15 @@ export default async function AdminListingsPage({ searchParams }: { searchParams
       <Link href="/admin" className="text-sm underline">
         Administration
       </Link>
-      <h1 className="mt-3 mb-6 text-2xl font-semibold">Listings</h1>
+      <div className="mt-3 mb-6 flex flex-wrap items-center justify-between gap-2">
+        <h1 className="text-2xl font-semibold">Listings</h1>
+        <Link
+          href="/admin/listings/import"
+          className="rounded-md bg-emerald-700 px-3 py-1 text-sm font-medium text-white hover:bg-emerald-800"
+        >
+          Import from CSV
+        </Link>
+      </div>
 
       <form method="get" className="mb-6 grid gap-3 sm:grid-cols-4">
         <label className="flex flex-col gap-1 text-sm sm:col-span-2">
