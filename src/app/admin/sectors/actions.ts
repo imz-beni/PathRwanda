@@ -7,6 +7,7 @@ import { requireRole } from "@/lib/auth/dal";
 import { checkCourseLink, type LinkCheckResult } from "@/lib/course-links";
 import { fieldErrors, type FieldErrors } from "@/lib/validation/auth";
 import { courseSchema, sectorSchema } from "@/lib/validation/content";
+import { formValues } from "@/lib/form-values";
 
 export type ContentFormState = {
   errors?: FieldErrors;
@@ -14,10 +15,6 @@ export type ContentFormState = {
   saved?: boolean;
   values?: Record<string, string>;
 };
-
-function formValues(formData: FormData, names: string[]): Record<string, string> {
-  return Object.fromEntries(names.map((name) => [name, String(formData.get(name) ?? "")]));
-}
 
 // Every action checks the role again: the page guard alone does not protect a server action.
 
