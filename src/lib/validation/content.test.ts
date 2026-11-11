@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { courseSchema, sectorSchema } from "./content";
+import { courseSchema, pathwaySchema, sectorSchema, skillSchema } from "./content";
 
 const course = {
   title: "Introduction to Sustainable Agriculture",
@@ -52,5 +52,37 @@ describe("courseSchema", () => {
   it("requires a title and provider", () => {
     expect(courseSchema.safeParse({ ...course, title: " " }).success).toBe(false);
     expect(courseSchema.safeParse({ ...course, provider: "" }).success).toBe(false);
+  });
+});
+
+describe("skillSchema", () => {
+  it("trims the name", () => {
+    expect(skillSchema.parse({ name: "  Soil health  " })).toEqual({ name: "Soil health" });
+  });
+
+  it("rejects a one-letter name", () => {
+    expect(skillSchema.safeParse({ name: "S" }).success).toBe(false);
+  });
+});
+
+describe("pathwaySchema", () => {
+  const pathway = {
+    title: "Farm technician",
+    description: "Supports day-to-day crop production.",
+    incomeNote: "",
+    skillIds: ["a", "b"],
+  };
+
+  it("turns an empty income note into null", () => {
+    expect(pathwaySchema.parse(pathway).incomeNote).toBeNull();
+  });
+
+  it("accepts a pathway with no skills", () => {
+    expect(pathwaySchema.safeParse({ ...pathway, skillIds: [] }).success).toBe(true);
+  });
+
+  it("rejects a description that is too short", () => {
+    const result = pathwaySchema.safeParse({ ...pathway, description: "Short" });
+    expect(result.success).toBe(false);
   });
 });
