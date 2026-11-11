@@ -1,5 +1,6 @@
 import { PrismaClient, SectorStatus } from "@prisma/client";
 import bcrypt from "bcryptjs";
+import { DEMO_APPLY_INFO, demoListings, demoOrganizations } from "./demo-listings";
 
 const prisma = new PrismaClient();
 
@@ -242,6 +243,52 @@ async function seedTestUsers() {
       },
     });
   }
+
+  // More demo organizations, all approved, so the demo listings have realistic owners.
+  const organizationIds: Record<string, string> = { farms: farms.id };
+  for (const o of demoOrganizations) {
+    const owner = await upsertUser(o.email, o.ownerName, o.role);
+    const organization = await prisma.organization.upsert({
+      where: { ownerId: owner.id },
+      update: {},
+      create: { ownerId: owner.id, name: o.name, type: o.type, status: "APPROVED" },
+    });
+    organizationIds[o.key] = organization.id;
+  }
+
+  // Demo listings are only added when missing. An expired one gets a new closing date so the
+  // demo data stays useful, but its status is left alone in case an admin closed or removed it.
+  const skills = await prisma.skill.findMany({
+    where: { sectorId: agritech.id },
+    select: { id: true, name: true },
+  });
+  const day = 24 * 60 * 60 * 1000;
+  for (const l of demoListings) {
+    const organizationId = organizationIds[l.organization];
+    const closes = new Date(now.getTime() + l.closesInDays * day);
+    const found = await prisma.listing.findFirst({ where: { organizationId, title: l.title } });
+    if (found) {
+      if (found.closesAt < now) {
+        await prisma.listing.update({ where: { id: found.id }, data: { closesAt: closes } });
+      }
+      continue;
+    }
+    await prisma.listing.create({
+      data: {
+        organizationId,
+        title: l.title,
+        type: l.type,
+        description: l.description,
+        requirements: l.requirements,
+        location: l.location,
+        applyInfo: DEMO_APPLY_INFO,
+        closesAt: closes,
+        sectors: { create: [{ sectorId: agritech.id }] },
+        // Only skills that still exist are linked: an admin may have renamed or deleted one.
+        skills: { connect: skills.filter((skill) => l.skills.includes(skill.name)) },
+      },
+    });
+  }
 }
 
 async function main() {
@@ -252,7 +299,6 @@ async function main() {
   }
 
   await seedAdmin();
-  await seedTestUsers();
 
   const agritech = await prisma.sector.findUniqueOrThrow({ where: { slug: "agritech" } });
 
@@ -291,6 +337,9 @@ async function main() {
       await prisma.course.create({ data: { ...c, sectorId: agritech.id, checkedAt: new Date() } });
     }
   }
+
+  // Last, because the demo listings link to the skills created above.
+  await seedTestUsers();
 }
 
 main()
