@@ -48,3 +48,28 @@ export const courseSchema = z.object({
     .optional()
     .transform((value) => value === "on"),
 });
+
+export const skillSchema = z.object({
+  name: z
+    .string()
+    .trim()
+    .min(2, "Enter a skill name of at least 2 characters.")
+    .max(60, "That name is too long."),
+});
+
+export const pathwaySchema = z.object({
+  title: z.string().trim().min(3, "Enter the pathway title.").max(100, "That title is too long."),
+  description: z
+    .string()
+    .trim()
+    .min(10, "Write a short description of at least 10 characters.")
+    .max(400, "Please keep the description under 400 characters."),
+  // Income is optional on purpose: only add it when a reliable source backs it.
+  incomeNote: z
+    .string()
+    .trim()
+    .max(100, "Please keep the income note under 100 characters.")
+    .optional()
+    .transform((value) => (value ? value : null)),
+  skillIds: z.array(z.string().min(1)).max(20, "Choose at most 20 skills."),
+});
