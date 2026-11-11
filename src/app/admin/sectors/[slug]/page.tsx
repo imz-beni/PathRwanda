@@ -49,6 +49,7 @@ export default async function AdminSectorPage({ params }: Props) {
         orderBy: { title: "asc" },
         include: { _count: { select: { progress: true } } },
       },
+      _count: { select: { pathways: true, skills: true } },
     },
   });
   if (!sector) notFound();
@@ -74,6 +75,26 @@ export default async function AdminSectorPage({ params }: Props) {
           overview={sector.overview}
           status={sector.status}
         />
+      </section>
+
+      <section aria-labelledby="structure" className="mb-10">
+        <h2 id="structure" className="mb-3 text-lg font-medium">
+          Pathways and skills
+        </h2>
+        <div className="flex flex-wrap gap-2">
+          <Link
+            href={`/admin/sectors/${sector.slug}/pathways`}
+            className="rounded border border-zinc-300 px-3 py-1 text-sm dark:border-zinc-700"
+          >
+            Career pathways ({sector._count.pathways})
+          </Link>
+          <Link
+            href={`/admin/sectors/${sector.slug}/skills`}
+            className="rounded border border-zinc-300 px-3 py-1 text-sm dark:border-zinc-700"
+          >
+            Skills ({sector._count.skills})
+          </Link>
+        </div>
       </section>
 
       <section>
