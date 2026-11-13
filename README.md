@@ -54,6 +54,14 @@ The app runs at http://localhost:3000.
 - When `TEST_USER_PASSWORD` is set, `npm run db:seed` also adds four approved demo organizations and 20+ made-up Agritech listings (`prisma/demo-listings.ts`). Each one says it is a demo, so it cannot be mistaken for a real offer.
 - Admins search users at `/admin/users` and can deactivate or reactivate accounts. A deactivated user is signed out at once and cannot log in; their data is kept. Admin accounts cannot be deactivated there. Deactivating an organization's owner does not hide its listings; reject the organization for that.
 
+## Matching and saved opportunities
+
+- Young users see their top 10 matches at `/recommendations`. Each open listing is scored out of 100: 50 if it is in a sector they follow, up to 30 for how many of its skills they have, and 20 for a completed course in that sector (10 if only started). The weights live in `src/lib/matching/config.ts`.
+- The scoring is a pure function (`src/lib/matching/score.ts`) with tests for five sample users. Only open listings from approved organizations are scored.
+- Every match shows "Why this match" in plain sentences. Recommendations are worked out on each visit and never stored, so they always reflect the latest follows, skills and course progress.
+- Recommendation links go through `/go/match/[id]`, which logs a `MATCHED_LISTING_VIEWED` event for the MVP metrics.
+- Young users can save a listing from its page and see their list at `/saved`. Saved listings that have closed are marked; removed ones disappear.
+
 ## Scripts
 
 | Script                                  | Purpose                             |
