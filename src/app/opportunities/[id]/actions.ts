@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { db } from "@/lib/db";
-import { requireUser } from "@/lib/auth/dal";
+import { requireRole, requireUser } from "@/lib/auth/dal";
 import { fieldErrors, type FieldErrors } from "@/lib/validation/auth";
 import { reportSchema } from "@/lib/validation/report";
 
@@ -43,4 +43,25 @@ export async function reportListing(
   });
   revalidatePath("/admin", "layout");
   return { sent: true };
+}
+
+// Saving is for young users. The role is checked here again, like every other action.
+export async function toggleSaved(formData: FormData) {
+  const user = await requireRole("YOUTH");
+  const listingId = String(formData.get("listingId") ?? "");
+
+  const key = { userId_listingId: { userId: user.id, listingId } };
+  const existing = await db.savedListing.findUnique({ where: key });
+  if (existing) {
+    await db.savedListing.delete({ where: key });
+  } else {
+    // Only listings the public can see can be saved.
+    const listing = await db.listing.findFirst({
+      where: { id: listingId, status: { not: "REMOVED" }, organization: { status: "APPROVED" } },
+      select: { id: true },
+    });
+    if (!listing) return;
+    await db.savedListing.create({ data: { userId: user.id, listingId } });
+  }
+  revalidatePath("/", "layout");
 }

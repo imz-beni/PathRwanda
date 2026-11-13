@@ -4,6 +4,7 @@ import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth/dal";
 import { displayStatus, formatDate } from "@/lib/listings";
 import { TYPE_LABEL } from "@/lib/validation/listing";
+import { toggleSaved } from "./actions";
 import { ReportForm } from "./ReportForm";
 
 type Props = { params: Promise<{ id: string }> };
@@ -33,6 +34,14 @@ export default async function OpportunityPage({ params }: Props) {
   const { id } = await params;
   const [listing, user] = await Promise.all([getListing(id), getCurrentUser()]);
   if (!listing) notFound();
+  const saved =
+    user?.role === "YOUTH"
+      ? Boolean(
+          await db.savedListing.findUnique({
+            where: { userId_listingId: { userId: user.id, listingId: listing.id } },
+          }),
+        )
+      : false;
 
   const status = displayStatus(listing);
   const open = status === "ACTIVE";
@@ -47,6 +56,23 @@ export default async function OpportunityPage({ params }: Props) {
         {listing.organization.name} · {TYPE_LABEL[listing.type]}
         {listing.location ? ` · ${listing.location}` : ""}
       </p>
+
+      {user?.role === "YOUTH" && (
+        <form action={toggleSaved} className="mb-4">
+          <input type="hidden" name="listingId" value={listing.id} />
+          <button
+            type="submit"
+            aria-pressed={saved}
+            className={
+              saved
+                ? "rounded-md border border-emerald-700 px-4 py-2 text-sm font-medium text-emerald-800 dark:text-emerald-300"
+                : "rounded-md bg-emerald-700 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-800"
+            }
+          >
+            {saved ? "Saved (click to remove)" : "Save this opportunity"}
+          </button>
+        </form>
+      )}
 
       {!open && (
         <p
