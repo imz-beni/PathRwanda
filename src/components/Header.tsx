@@ -24,6 +24,12 @@ export async function Header() {
           </Link>
           {user?.role === "YOUTH" && (
             <>
+              <Link href="/recommendations" className={linkClass}>
+                {nav.recommendations}
+              </Link>
+              <Link href="/saved" className={linkClass}>
+                {nav.saved}
+              </Link>
               <Link href="/progress" className={linkClass}>
                 {nav.progress}
               </Link>

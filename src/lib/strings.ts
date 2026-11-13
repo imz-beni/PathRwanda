@@ -4,6 +4,8 @@ export const strings = {
   nav: {
     sectors: "Sectors",
     opportunities: "Opportunities",
+    recommendations: "For you",
+    saved: "Saved",
     progress: "My progress",
     profile: "My profile",
     dashboard: "Dashboard",
