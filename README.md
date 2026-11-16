@@ -155,7 +155,7 @@ public address with a hosted database.
 This is a prototype. These parts of the design are not built yet:
 
 - **Email verification.** Accounts work as soon as they are created; no confirmation email is sent.
-- **Email alerts for new matches.** Recommendations are shown in the app only.
+- **Email alerts for new matches.** New matches are flagged inside the app only; no email is sent.
 - **Password reset by email.** An administrator has to help a user who forgets their password.
 - **Sectors other than Agritech** are listed as "coming soon".
 - **Demo data.** The seeded listings are made up for testing and say so. Only a few real courses are included.
@@ -200,6 +200,7 @@ This is a prototype. These parts of the design are not built yet:
 - The scoring is a pure function (`src/lib/matching/score.ts`) with tests for five sample users. Only open listings from approved organizations are scored.
 - Every match shows "Why this match" in plain sentences. Recommendations are worked out on each visit and never stored, so they always reflect the latest follows, skills and course progress.
 - Recommendation links go through `/go/match/[id]`, which logs a `MATCHED_LISTING_VIEWED` event for the MVP metrics.
+- New matches raise an in-app alert: a count beside "For you" in the menu and a "new" section on the recommendations page. A listing counts when it was published after the user last chose "Mark as seen" (or after they joined) and scores 50 or more.
 - Young users can save a listing from its page and see their list at `/saved`. Saved listings that have closed are marked; removed ones disappear.
 
 ### Help and privacy
