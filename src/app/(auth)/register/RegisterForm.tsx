@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useActionState, useState } from "react";
 import { FormField } from "@/components/FormField";
 import { SubmitButton } from "@/components/SubmitButton";
@@ -104,6 +105,14 @@ export function RegisterForm() {
           </p>
         )}
       </div>
+
+      <p className="text-sm text-zinc-600 dark:text-zinc-400">
+        We only ask for what we need to run your account.{" "}
+        <Link href="/privacy" className="font-medium underline">
+          See how we use your data
+        </Link>
+        .
+      </p>
 
       <p className="text-sm text-zinc-500">
         We collect your name and email to run your account and match you to opportunities. We do not
