@@ -146,6 +146,71 @@ const agritechCourses = [
       "Official source for farming guidance. Training is mainly delivered through extension officers and cooperatives, so ask your district agronomist.",
     isFree: true,
   },
+  // The courses below were opened and checked on 2026-11-16.
+  {
+    title: "Farm machinery and equipment for harvest, post-harvest and storage",
+    provider: "FAO eLearning Academy",
+    url: "https://elearning.fao.org/course/view.php?id=906",
+    description:
+      "Short free course on machines that help small and medium farmers harvest, process and store crops with fewer losses. Needs a free FAO account.",
+    isFree: true,
+  },
+  {
+    title: "Climate-smart crop production",
+    provider: "FAO eLearning Academy",
+    url: "https://elearning.fao.org/course/view.php?id=436",
+    description:
+      "Free course on growing crops sustainably and profitably as the climate changes, covering soil, water and pest management. Needs a free FAO account.",
+    isFree: true,
+  },
+  {
+    title: "Operation and maintenance of agricultural equipment for hire service businesses",
+    provider: "FAO eLearning Academy",
+    url: "https://elearning.fao.org/course/view.php?id=780",
+    description:
+      "Free course on using, maintaining and repairing farm equipment for people who run or want to start an equipment hire service. Needs a free FAO account.",
+    isFree: true,
+  },
+  {
+    title: "Sustainable Agriculture Theory: Cultivating a Greener Future",
+    provider: "Alison (Training Express)",
+    url: "https://alison.com/course/sustainable-agriculture-theory-cultivating-a-greener-future",
+    description:
+      "Free online course, about 2 to 3 hours, on sustainable farming practices. Learning is free; Alison charges for an official certificate.",
+    isFree: true,
+  },
+  {
+    title: "Farm Management and Maintenance",
+    provider: "Alison (Alpha Academy)",
+    url: "https://alison.com/course/farm-management-and-maintenance",
+    description:
+      "Free online course, about 2 to 3 hours, on running a farm and managing it sustainably. Learning is free; Alison charges for an official certificate.",
+    isFree: true,
+  },
+  {
+    title: "Sustainable Agricultural Land Management",
+    provider: "University of Florida on Coursera",
+    url: "https://www.coursera.org/learn/sustainable-agriculture",
+    description:
+      "Beginner course, about 20 hours, on managing water and nutrients on farm land. Coursera may charge for full access or a certificate.",
+    isFree: false,
+  },
+  {
+    title: "Challenges of Agribusiness Management",
+    provider: "Bocconi University on Coursera",
+    url: "https://www.coursera.org/learn/agribusiness-management-challenges",
+    description:
+      "About 5 hours on how agribusinesses deal with markets, sustainability and new technology. Coursera may charge for full access or a certificate.",
+    isFree: false,
+  },
+  {
+    title: "IoT Enabled Farming",
+    provider: "EDUCBA on Coursera",
+    url: "https://www.coursera.org/learn/iot-enabled-farming",
+    description:
+      "Beginner course, about 5 hours, on sensors and connected devices in farming. Coursera may charge for full access or a certificate.",
+    isFree: false,
+  },
 ];
 
 // The value .env.example ships with. Accounts are never created with it, so a copied example
