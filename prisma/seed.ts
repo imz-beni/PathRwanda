@@ -148,11 +148,19 @@ const agritechCourses = [
   },
 ];
 
+// The value .env.example ships with. Accounts are never created with it, so a copied example
+// file cannot put a password that is public on GitHub into a real database.
+const PLACEHOLDER = "change-me";
+
 async function seedAdmin() {
   const email = process.env.ADMIN_EMAIL?.toLowerCase();
   const password = process.env.ADMIN_PASSWORD;
   if (!email || !password) {
     console.log("ADMIN_EMAIL / ADMIN_PASSWORD not set, skipping admin account");
+    return;
+  }
+  if (password === PLACEHOLDER) {
+    console.log("ADMIN_PASSWORD is still the placeholder. Set a real one in .env. Skipping admin.");
     return;
   }
   const passwordHash = await bcrypt.hash(password, 12);
@@ -167,8 +175,8 @@ async function seedAdmin() {
 // so a production database never gets them unless someone sets that variable on purpose.
 async function seedTestUsers() {
   const password = process.env.TEST_USER_PASSWORD;
-  if (!password) {
-    console.log("TEST_USER_PASSWORD not set, skipping demo accounts");
+  if (!password || password === PLACEHOLDER) {
+    console.log("TEST_USER_PASSWORD not set (or still the placeholder), skipping demo accounts");
     return;
   }
   const passwordHash = await bcrypt.hash(password, 12);
