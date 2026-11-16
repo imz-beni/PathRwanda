@@ -53,13 +53,15 @@ model User {
 }
 
 model Profile {
-  id        String   @id @default(cuid())
-  userId    String   @unique
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  district  String?
-  interests String?
-  skills    Skill[]
-  updatedAt DateTime @updatedAt
+  id             String   @id @default(cuid())
+  userId         String   @unique
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  district       String?
+  // One of EDUCATION_LEVELS in src/lib/validation/profile.ts. Optional.
+  educationLevel String?
+  interests      String?
+  skills         Skill[]
+  updatedAt      DateTime @updatedAt
 }
 
 model Organization {
