@@ -15,10 +15,13 @@ export default async function LoginPage({
   if (await getCurrentUser()) redirect(safeNextPath(next));
 
   return (
-    <main className="mx-auto w-full max-w-md flex-1 px-4 py-10">
-      <h1 className="mb-6 text-2xl font-semibold">Log in</h1>
-      <LoginForm next={next ? safeNextPath(next) : undefined} />
-      <p className="mt-6 text-sm">
+    <main className="mx-auto w-full max-w-md flex-1 px-4 py-12">
+      <div className="card p-6 sm:p-8">
+        <h1 className="mb-1 text-2xl font-semibold">Log in</h1>
+        <p className="mb-6 text-sm text-muted">Welcome back to PathRwanda.</p>
+        <LoginForm next={next ? safeNextPath(next) : undefined} />
+      </div>
+      <p className="mt-6 text-center text-sm">
         New to PathRwanda?{" "}
         <Link href="/register" className="font-medium underline">
           Create an account
