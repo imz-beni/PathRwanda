@@ -17,6 +17,8 @@ export const strings = {
   },
   footer: {
     tagline: "Career discovery, learning and opportunities for Rwandan youth.",
+    help: "Help",
+    privacyLink: "Your data and privacy",
     privacy:
       "We only collect the information needed to run your account and match you to opportunities, and we protect it in line with Rwanda's data protection law (Law No. 058/2021).",
   },
