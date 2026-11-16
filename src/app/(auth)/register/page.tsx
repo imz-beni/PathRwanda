@@ -9,10 +9,15 @@ export default async function RegisterPage() {
   if (await getCurrentUser()) redirect("/sectors");
 
   return (
-    <main className="mx-auto w-full max-w-md flex-1 px-4 py-10">
-      <h1 className="mb-6 text-2xl font-semibold">Create your account</h1>
-      <RegisterForm />
-      <p className="mt-6 text-sm">
+    <main className="mx-auto w-full max-w-md flex-1 px-4 py-12">
+      <div className="card p-6 sm:p-8">
+        <h1 className="mb-1 text-2xl font-semibold">Create your account</h1>
+        <p className="mb-6 text-sm text-muted">
+          Free for young people, employers and training providers.
+        </p>
+        <RegisterForm />
+      </div>
+      <p className="mt-6 text-center text-sm">
         Already have an account?{" "}
         <Link href="/login" className="font-medium underline">
           Log in
