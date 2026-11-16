@@ -202,6 +202,11 @@ This is a prototype. These parts of the design are not built yet:
 - Recommendation links go through `/go/match/[id]`, which logs a `MATCHED_LISTING_VIEWED` event for the MVP metrics.
 - Young users can save a listing from its page and see their list at `/saved`. Saved listings that have closed are marked; removed ones disappear.
 
+### Results against the targets
+
+- Admins see `/admin/metrics`: the share of registered young users who followed Agritech (target 60%), clicked through to a course (40%) and opened a recommended opportunity (30%), plus a few totals. These are the hypothesis targets from the SRS.
+- Each user is counted once per measure, from the `Event` table. Demo accounts (`@pathrwanda.local`) are left out. The sums are in `src/lib/metrics.ts`.
+
 ### Help and privacy
 
 - `/help` answers common questions for young users and organizations.
