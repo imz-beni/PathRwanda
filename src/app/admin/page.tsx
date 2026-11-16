@@ -39,6 +39,11 @@ export default async function AdminPage() {
           Sectors and courses
         </Link>
       </p>
+      <p className="mt-2">
+        <Link href="/admin/metrics" className="font-medium underline">
+          Results against the targets
+        </Link>
+      </p>
     </main>
   );
 }
