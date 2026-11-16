@@ -172,7 +172,7 @@ This is a prototype. These parts of the design are not built yet:
 ### Learning features (Agritech)
 
 - Sector pages show career pathways, the skills they need, and links to external courses.
-- Young users can follow sectors, mark courses as started or completed, and pick the skills they have (`/profile`).
+- Young users can follow sectors, mark courses as started or completed, and pick the skills they have (`/profile`). They can also give their district and highest level of education; both are optional and not used for matching.
 - Course links go through `/go/course/[id]` so clicks can be counted. Follows, clicks and course changes are logged in the `Event` table for the MVP metrics.
 - Course links in `prisma/seed.ts` must be real and checked. Do not add URLs that have not been opened.
 - Admins edit sectors and courses at `/admin/sectors`: change a sector's name, overview and live/coming-soon status, and add, edit, hide, show or delete courses. Courses that learners have progress on can be hidden but not deleted.
