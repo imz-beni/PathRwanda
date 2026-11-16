@@ -10,7 +10,13 @@ Agritech sector.
 
 ## Live site
 
-Not deployed yet. The public address will be added here once the app is online.
+**<https://path-rwanda.vercel.app>**
+
+The app runs on Vercel with a PostgreSQL database on Neon. Without an account you can read the
+sector pages, browse and search opportunities, and open the help and privacy pages. To try the
+rest, choose **Create account**, or use a demo account from the list under
+[Log in](#8-log-in). The demo passwords for the live site are not published here; they are
+shared with reviewers in the project submission.
 
 ## Who uses it and what they can do
 
