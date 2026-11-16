@@ -44,7 +44,7 @@ export function ReportForm({ listingId }: { listingId: string }) {
           aria-describedby={["reason-hint", errors?.length ? "reason-error" : null]
             .filter(Boolean)
             .join(" ")}
-          className="rounded-md border border-zinc-300 bg-transparent px-3 py-2 text-base dark:border-zinc-700"
+          className="input"
         />
         <p id="reason-hint" className="text-sm text-zinc-500">
           For example: they asked for money, the details are false, or the link does not work.

@@ -33,10 +33,7 @@ function ActionButton({
   return (
     <form action={action}>
       <input type="hidden" name="listingId" value={listingId} />
-      <button
-        type="submit"
-        className="rounded border border-zinc-300 px-3 py-1 text-sm dark:border-zinc-700"
-      >
+      <button type="submit" className="btn btn-secondary btn-sm">
         {label}
       </button>
     </form>
@@ -56,11 +53,8 @@ export default async function MyListingsPage() {
   return (
     <main className="mx-auto w-full max-w-3xl flex-1 px-4 py-10">
       <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
-        <h1 className="text-2xl font-semibold">My listings</h1>
-        <Link
-          href="/dashboard/listings/new"
-          className="rounded-md bg-emerald-700 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-800"
-        >
+        <h1 className="text-3xl font-semibold">My listings</h1>
+        <Link href="/dashboard/listings/new" className="btn btn-primary">
           Create a listing
         </Link>
       </div>
@@ -72,10 +66,7 @@ export default async function MyListingsPage() {
           {listings.map((listing) => {
             const status = displayStatus(listing, now);
             return (
-              <li
-                key={listing.id}
-                className="flex flex-col gap-2 rounded-lg border border-zinc-200 p-4 dark:border-zinc-800"
-              >
+              <li key={listing.id} className="flex flex-col gap-2 card p-4">
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <h2 className="font-medium">{listing.title}</h2>
                   <span className={`rounded-full px-2 py-0.5 text-xs ${STATUS_STYLE[status]}`}>
@@ -91,14 +82,14 @@ export default async function MyListingsPage() {
                   {status === "ACTIVE" && (
                     <Link
                       href={`/opportunities/${listing.id}`}
-                      className="rounded border border-zinc-300 px-3 py-1 text-sm dark:border-zinc-700"
+                      className="btn btn-secondary btn-sm"
                     >
                       View
                     </Link>
                   )}
                   <Link
                     href={`/dashboard/listings/${listing.id}/edit`}
-                    className="rounded border border-zinc-300 px-3 py-1 text-sm dark:border-zinc-700"
+                    className="btn btn-secondary btn-sm"
                   >
                     Edit
                   </Link>

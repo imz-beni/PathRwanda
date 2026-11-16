@@ -9,7 +9,7 @@ const list = "flex list-disc flex-col gap-1 pl-5";
 export default function PrivacyPage() {
   return (
     <main className="mx-auto w-full max-w-2xl flex-1 px-4 py-10">
-      <h1 className="mb-2 text-2xl font-semibold">Your data and privacy</h1>
+      <h1 className="mb-2 text-3xl font-semibold">Your data and privacy</h1>
       <p className="text-zinc-600 dark:text-zinc-400">
         This page explains, in plain words, what PathRwanda knows about you, why, and what you can
         do about it. PathRwanda is a student prototype. It follows Rwanda&apos;s law on the

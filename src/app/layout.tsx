@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Fraunces, Geist, Geist_Mono } from "next/font/google";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import "./globals.css";
@@ -14,6 +14,12 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+// The display serif used for page titles.
+const displaySerif = Fraunces({
+  variable: "--font-display-serif",
+  subsets: ["latin"],
+});
+
 export const metadata: Metadata = {
   title: "PathRwanda",
   description: "Career discovery, learning and opportunity matching for Rwandan youth.",
@@ -21,7 +27,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
+    <html
+      lang="en"
+      className={`${geistSans.variable} ${geistMono.variable} ${displaySerif.variable} h-full antialiased`}
+    >
       <body className="min-h-full flex flex-col">
         <Header />
         {children}

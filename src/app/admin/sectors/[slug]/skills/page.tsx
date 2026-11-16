@@ -32,7 +32,7 @@ export default async function AdminSkillsPage({ params }: Props) {
       <Link href={`/admin/sectors/${sector.slug}`} className="text-sm underline">
         {sector.name}
       </Link>
-      <h1 className="mt-3 mb-2 text-2xl font-semibold">Skills ({sector.skills.length})</h1>
+      <h1 className="mt-3 mb-2 text-3xl font-semibold">Skills ({sector.skills.length})</h1>
       <p className="mb-6 text-sm text-zinc-600 dark:text-zinc-400">
         Learners pick these skills on their profile, and organizations pick them for listings.
         Renaming a skill updates it everywhere.
@@ -53,10 +53,7 @@ export default async function AdminSkillsPage({ params }: Props) {
             const { pathways, profiles, listings } = skill._count;
             const inUse = profiles > 0 || listings > 0;
             return (
-              <li
-                key={skill.id}
-                className="flex flex-col gap-2 rounded-lg border border-zinc-200 p-4 dark:border-zinc-800"
-              >
+              <li key={skill.id} className="flex flex-col gap-2 card p-4">
                 <RenameSkillForm skillId={skill.id} name={skill.name} />
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <p className="text-sm text-zinc-600 dark:text-zinc-400">
@@ -66,10 +63,7 @@ export default async function AdminSkillsPage({ params }: Props) {
                   {!inUse && (
                     <form action={deleteSkill}>
                       <input type="hidden" name="skillId" value={skill.id} />
-                      <button
-                        type="submit"
-                        className="rounded border border-zinc-300 px-3 py-1 text-sm dark:border-zinc-700"
-                      >
+                      <button type="submit" className="btn btn-secondary btn-sm">
                         Delete
                       </button>
                     </form>

@@ -6,8 +6,7 @@ import { saveProfile } from "./actions";
 
 export const metadata = { title: "My profile | PathRwanda" };
 
-const selectClass =
-  "rounded-md border border-zinc-300 bg-transparent px-3 py-2 text-base dark:border-zinc-700";
+const selectClass = "input";
 
 export default async function ProfilePage() {
   const user = await requireRole("YOUTH");
@@ -27,7 +26,7 @@ export default async function ProfilePage() {
 
   return (
     <main className="mx-auto w-full max-w-3xl flex-1 px-4 py-10">
-      <h1 className="mb-2 text-2xl font-semibold">My profile</h1>
+      <h1 className="mb-2 text-3xl font-semibold">My profile</h1>
       <p className="mb-6 text-zinc-600 dark:text-zinc-400">
         Tick the skills you already have. We use them, together with the sectors you follow and the
         courses you complete, to suggest opportunities. Only you can see this page.

@@ -23,10 +23,7 @@ function ActionButton({
   return (
     <form action={action}>
       <input type="hidden" name={name} value={value} />
-      <button
-        type="submit"
-        className="rounded border border-zinc-300 px-3 py-1 text-sm dark:border-zinc-700"
-      >
+      <button type="submit" className="btn btn-secondary btn-sm">
         {label}
       </button>
     </form>
@@ -65,7 +62,7 @@ export default async function AdminReportsPage() {
       <Link href="/admin" className="text-sm underline">
         Administration
       </Link>
-      <h1 className="mt-3 mb-6 text-2xl font-semibold">Reported listings</h1>
+      <h1 className="mt-3 mb-6 text-3xl font-semibold">Reported listings</h1>
 
       <h2 className="mb-3 text-lg font-medium">Open ({open.length})</h2>
       {open.length === 0 ? (
@@ -73,10 +70,7 @@ export default async function AdminReportsPage() {
       ) : (
         <ul className="mb-8 flex flex-col gap-3">
           {open.map((report) => (
-            <li
-              key={report.id}
-              className="flex flex-col gap-2 rounded-lg border border-zinc-200 p-4 dark:border-zinc-800"
-            >
+            <li key={report.id} className="flex flex-col gap-2 card p-4">
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <h3 className="font-medium">
                   {report.listing.status === "REMOVED" ? (

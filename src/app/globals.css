@@ -1,26 +1,250 @@
 @import "tailwindcss";
 
+/* The shared look of PathRwanda. Pages use the small set of classes defined at the bottom
+   (btn, card, badge, chip, input, notice) so buttons and cards look the same everywhere. */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f6f7f5;
+  --foreground: #14181a;
+  --surface: #ffffff;
+  --border: #e3e6e2;
+  --muted: #55605b;
+  --brand: #047857;
+  --brand-strong: #065f46;
+  --brand-soft: #e9f7f0;
+  /* The deep green used for the hero and footer, in both light and dark mode. */
+  --forest: #06231b;
+  --forest-raised: #0d3327;
+  --gold: #f5c453;
+  --shadow-card: 0 1px 2px rgb(16 24 20 / 0.04), 0 4px 12px -2px rgb(16 24 20 / 0.05);
+  --shadow-lift: 0 2px 4px rgb(16 24 20 / 0.05), 0 16px 32px -8px rgb(16 24 20 / 0.14);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-surface: var(--surface);
+  --color-line: var(--border);
+  --color-muted: var(--muted);
+  --color-brand: var(--brand);
+  --color-brand-strong: var(--brand-strong);
+  --color-brand-soft: var(--brand-soft);
+  --color-forest: var(--forest);
+  --color-forest-raised: var(--forest-raised);
+  --color-gold: var(--gold);
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --font-display: var(--font-display-serif), ui-serif, Georgia, serif;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #090c0b;
+    --foreground: #eef1ef;
+    --surface: #121614;
+    --border: #262c29;
+    --muted: #9aa5a0;
+    --brand: #10b981;
+    --brand-strong: #5eead4;
+    --brand-soft: #0c2a20;
+    --forest: #051c15;
+    --forest-raised: #0b2a20;
+    --shadow-card: 0 1px 2px rgb(0 0 0 / 0.4);
+    --shadow-lift: 0 2px 4px rgb(0 0 0 / 0.4), 0 16px 32px -8px rgb(0 0 0 / 0.6);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Page titles use the display serif; everything else stays in the sans. */
+  h1 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    text-wrap: balance;
+  }
+
+  h2,
+  h3 {
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+  }
+
+  ::selection {
+    background: var(--brand);
+    color: #ffffff;
+  }
+
+  a.underline {
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+    text-decoration-color: color-mix(in srgb, currentColor 40%, transparent);
+  }
+  a.underline:hover {
+    text-decoration-color: currentColor;
+  }
+
+  /* One clear keyboard focus style everywhere. */
+  :focus-visible {
+    outline: 2px solid var(--brand);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+
+  input[type="checkbox"],
+  input[type="radio"] {
+    accent-color: var(--brand);
+    width: 1rem;
+    height: 1rem;
+  }
+
+  summary {
+    cursor: pointer;
+  }
+}
+
+@layer components {
+  /* Buttons. "btn" sets the shape; add btn-primary or btn-secondary, and btn-sm for small. */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-2 text-sm font-medium transition disabled:cursor-not-allowed disabled:opacity-60;
+  }
+  .btn:active {
+    transform: translateY(1px);
+  }
+  .btn-sm {
+    @apply px-3.5 py-1.5;
+  }
+  .btn-lg {
+    @apply px-6 py-3 text-base;
+  }
+  .btn-primary {
+    background: linear-gradient(180deg, #0a8f69 0%, #047857 100%);
+    color: #ffffff;
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.18),
+      0 1px 2px rgb(4 60 44 / 0.35);
+  }
+  .btn-primary:hover {
+    background: linear-gradient(180deg, #088560 0%, #03684b 100%);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.18),
+      0 6px 16px -4px rgb(4 120 87 / 0.5);
+  }
+  .btn-secondary {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--foreground);
+    box-shadow: 0 1px 2px rgb(16 24 20 / 0.04);
+  }
+  .btn-secondary:hover {
+    border-color: color-mix(in srgb, var(--foreground) 35%, transparent);
+  }
+  /* For buttons that sit on the dark green hero. */
+  .btn-gold {
+    background: var(--gold);
+    color: #1c1505;
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.35);
+  }
+  .btn-gold:hover {
+    background: #f8d06f;
+  }
+  .btn-ghost {
+    border: 1px solid rgb(255 255 255 / 0.28);
+    color: #ffffff;
+  }
+  .btn-ghost:hover {
+    background: rgb(255 255 255 / 0.1);
+  }
+
+  /* Cards: a white panel on the grey page. card-link adds a hover state for clickable cards. */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-card);
+    @apply rounded-2xl;
+  }
+  .card-link {
+    @apply transition duration-200;
+  }
+  .card-link:hover {
+    transform: translateY(-2px);
+    border-color: color-mix(in srgb, var(--brand) 55%, var(--border));
+    box-shadow: var(--shadow-lift);
+  }
+
+  /* Small labels. */
+  .badge {
+    @apply inline-flex items-center rounded-full bg-zinc-100 px-2.5 py-0.5 text-xs font-medium whitespace-nowrap text-zinc-700 dark:bg-zinc-800 dark:text-zinc-200;
+  }
+  .badge-job {
+    @apply bg-emerald-100 text-emerald-900 dark:bg-emerald-950 dark:text-emerald-200;
+  }
+  .badge-training {
+    @apply bg-sky-100 text-sky-900 dark:bg-sky-950 dark:text-sky-200;
+  }
+  .badge-program {
+    @apply bg-violet-100 text-violet-900 dark:bg-violet-950 dark:text-violet-200;
+  }
+  .chip {
+    background: var(--brand-soft);
+    color: var(--brand-strong);
+    @apply rounded-full px-3 py-1 text-sm font-medium;
+  }
+
+  /* Text fields and dropdowns. */
+  .input {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    box-shadow: inset 0 1px 2px rgb(16 24 20 / 0.03);
+    @apply rounded-xl px-3.5 py-2.5 text-base transition;
+  }
+  .input:hover {
+    border-color: color-mix(in srgb, var(--foreground) 25%, transparent);
+  }
+  .input:focus {
+    border-color: var(--brand);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--brand) 14%, transparent);
+    outline: none;
+  }
+
+  /* A quiet box for empty states and information. */
+  .notice {
+    background: var(--surface);
+    border: 1px dashed var(--border);
+    @apply rounded-2xl p-5;
+  }
+
+  .eyebrow {
+    color: var(--brand);
+    @apply text-xs font-semibold tracking-[0.14em] uppercase;
+  }
+
+  /* The dark green band used for the home hero, page tops and the footer. */
+  .forest {
+    background:
+      radial-gradient(60rem 30rem at 85% -10%, rgb(16 185 129 / 0.22), transparent 60%),
+      radial-gradient(40rem 24rem at 0% 110%, rgb(245 196 83 / 0.1), transparent 60%), var(--forest);
+    color: #eef5f1;
+  }
+  .forest .eyebrow {
+    color: var(--gold);
+  }
+  .forest-muted {
+    color: rgb(226 240 233 / 0.74);
+  }
+
+  /* A small square that holds an icon. */
+  .icon-tile {
+    background: var(--brand-soft);
+    color: var(--brand-strong);
+    @apply flex h-10 w-10 shrink-0 items-center justify-center rounded-xl;
+  }
 }

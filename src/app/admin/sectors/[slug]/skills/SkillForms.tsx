@@ -5,8 +5,7 @@ import { SubmitButton } from "@/components/SubmitButton";
 import type { ContentFormState } from "../../actions";
 import { createSkill, renameSkill } from "../../structure-actions";
 
-const inputClass =
-  "rounded-md border border-zinc-300 bg-transparent px-3 py-1.5 text-base dark:border-zinc-700";
+const inputClass = "input py-1.5";
 
 function SkillNameForm({
   id,

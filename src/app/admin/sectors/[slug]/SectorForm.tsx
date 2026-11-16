@@ -47,7 +47,7 @@ export function SectorForm({ sectorId, name, overview, status }: Props) {
           defaultValue={values?.overview ?? overview}
           aria-invalid={state?.errors?.overview?.length ? true : undefined}
           aria-describedby={state?.errors?.overview?.length ? "overview-error" : undefined}
-          className="rounded-md border border-zinc-300 bg-transparent px-3 py-2 text-base dark:border-zinc-700"
+          className="input"
         />
         {state?.errors?.overview?.length ? (
           <p id="overview-error" role="alert" className="text-sm text-red-600 dark:text-red-400">
@@ -59,12 +59,7 @@ export function SectorForm({ sectorId, name, overview, status }: Props) {
         <label htmlFor="status" className="text-sm font-medium">
           Status
         </label>
-        <select
-          id="status"
-          name="status"
-          defaultValue={values?.status ?? status}
-          className="rounded-md border border-zinc-300 bg-transparent px-3 py-2 text-base dark:border-zinc-700"
-        >
+        <select id="status" name="status" defaultValue={values?.status ?? status} className="input">
           {SECTOR_STATUSES.map((s) => (
             <option key={s} value={s}>
               {SECTOR_STATUS_LABEL[s]}

@@ -33,10 +33,7 @@ function CourseButton({
         Object.entries(extra).map(([name, value]) => (
           <input key={name} type="hidden" name={name} value={value} />
         ))}
-      <button
-        type="submit"
-        className="rounded border border-zinc-300 px-3 py-1 text-sm dark:border-zinc-700"
-      >
+      <button type="submit" className="btn btn-secondary btn-sm">
         {label}
       </button>
     </form>
@@ -63,7 +60,7 @@ export default async function AdminSectorPage({ params }: Props) {
       <Link href="/admin/sectors" className="text-sm underline">
         Sectors and courses
       </Link>
-      <h1 className="mt-3 mb-1 text-2xl font-semibold">{sector.name}</h1>
+      <h1 className="mt-3 mb-1 text-3xl font-semibold">{sector.name}</h1>
       <p className="mb-6 text-sm text-zinc-500">
         Public page:{" "}
         <Link href={`/sectors/${sector.slug}`} className="underline">
@@ -88,14 +85,11 @@ export default async function AdminSectorPage({ params }: Props) {
         <div className="flex flex-wrap gap-2">
           <Link
             href={`/admin/sectors/${sector.slug}/pathways`}
-            className="rounded border border-zinc-300 px-3 py-1 text-sm dark:border-zinc-700"
+            className="btn btn-secondary btn-sm"
           >
             Career pathways ({sector._count.pathways})
           </Link>
-          <Link
-            href={`/admin/sectors/${sector.slug}/skills`}
-            className="rounded border border-zinc-300 px-3 py-1 text-sm dark:border-zinc-700"
-          >
+          <Link href={`/admin/sectors/${sector.slug}/skills`} className="btn btn-secondary btn-sm">
             Skills ({sector._count.skills})
           </Link>
         </div>
@@ -106,7 +100,7 @@ export default async function AdminSectorPage({ params }: Props) {
           <h2 className="text-lg font-medium">Courses ({sector.courses.length})</h2>
           <Link
             href={`/admin/sectors/${sector.slug}/courses/new`}
-            className="rounded-md bg-emerald-700 px-3 py-1 text-sm font-medium text-white hover:bg-emerald-800"
+            className="btn btn-primary btn-sm"
           >
             Add course
           </Link>
@@ -123,10 +117,7 @@ export default async function AdminSectorPage({ params }: Props) {
             {sector.courses.map((course) => {
               const learners = course._count.progress;
               return (
-                <li
-                  key={course.id}
-                  className="flex flex-col gap-2 rounded-lg border border-zinc-200 p-4 dark:border-zinc-800"
-                >
+                <li key={course.id} className="flex flex-col gap-2 card p-4">
                   <div className="flex flex-wrap items-center justify-between gap-2">
                     <h3 className="font-medium">{course.title}</h3>
                     <span
@@ -159,7 +150,7 @@ export default async function AdminSectorPage({ params }: Props) {
                   <div className="flex flex-wrap items-center gap-2">
                     <Link
                       href={`/admin/sectors/${sector.slug}/courses/${course.id}/edit`}
-                      className="rounded border border-zinc-300 px-3 py-1 text-sm dark:border-zinc-700"
+                      className="btn btn-secondary btn-sm"
                     >
                       Edit
                     </Link>

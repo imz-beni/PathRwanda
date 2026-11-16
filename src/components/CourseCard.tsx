@@ -28,10 +28,7 @@ function ProgressButton({
     <form action={setCourseProgress}>
       <input type="hidden" name="courseId" value={courseId} />
       <input type="hidden" name="action" value={action} />
-      <button
-        type="submit"
-        className="rounded border border-zinc-300 px-3 py-1 text-sm dark:border-zinc-700"
-      >
+      <button type="submit" className="btn btn-secondary btn-sm">
         {label}
       </button>
     </form>
@@ -48,12 +45,10 @@ export function CourseCard({
   user: CurrentUser | null;
 }) {
   return (
-    <li className="flex flex-col gap-2 rounded-lg border border-zinc-200 p-4 dark:border-zinc-800">
+    <li className="flex flex-col gap-2 card p-4">
       <div className="flex flex-wrap items-center justify-between gap-2">
         <h3 className="font-medium">{course.title}</h3>
-        <span className="rounded-full bg-zinc-100 px-2 py-0.5 text-xs dark:bg-zinc-800">
-          {course.isFree ? "Free" : "Fees may apply"}
-        </span>
+        <span className="badge">{course.isFree ? "Free" : "Fees may apply"}</span>
       </div>
       <p className="text-sm text-zinc-500">{course.provider}</p>
       {course.description && (
@@ -64,7 +59,7 @@ export function CourseCard({
           href={`/go/course/${course.id}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="rounded-md bg-emerald-700 px-3 py-1 text-sm font-medium text-white hover:bg-emerald-800"
+          className="btn btn-primary btn-sm"
         >
           Open course (new tab)
         </a>

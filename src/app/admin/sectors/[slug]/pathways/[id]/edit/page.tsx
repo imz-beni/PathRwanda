@@ -30,7 +30,7 @@ export default async function EditPathwayPage({
       <Link href={`/admin/sectors/${pathway.sector.slug}/pathways`} className="text-sm underline">
         {pathway.sector.name} pathways
       </Link>
-      <h1 className="mt-3 mb-6 text-2xl font-semibold">Edit pathway</h1>
+      <h1 className="mt-3 mb-6 text-3xl font-semibold">Edit pathway</h1>
       <PathwayForm
         action={updatePathway.bind(null, pathway.id)}
         skills={pathway.sector.skills}

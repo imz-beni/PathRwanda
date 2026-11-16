@@ -17,6 +17,8 @@ export const strings = {
   },
   footer: {
     tagline: "Career discovery, learning and opportunities for Rwandan youth.",
+    explore: "Explore",
+    support: "Support",
     help: "Help",
     privacyLink: "Your data and privacy",
     privacy:

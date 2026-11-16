@@ -7,10 +7,7 @@ type Props = { sectorId: string; sectorPath: string; user: CurrentUser | null; f
 export function FollowButton({ sectorId, sectorPath, user, following }: Props) {
   if (!user) {
     return (
-      <Link
-        href={`/login?next=${encodeURIComponent(sectorPath)}`}
-        className="rounded-md bg-emerald-700 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-800"
-      >
+      <Link href={`/login?next=${encodeURIComponent(sectorPath)}`} className="btn btn-primary">
         Log in to follow this sector
       </Link>
     );
@@ -25,8 +22,8 @@ export function FollowButton({ sectorId, sectorPath, user, following }: Props) {
         aria-pressed={following}
         className={
           following
-            ? "rounded-md border border-emerald-700 px-4 py-2 text-sm font-medium text-emerald-800 dark:text-emerald-300"
-            : "rounded-md bg-emerald-700 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-800"
+            ? "btn btn-secondary border-emerald-700 text-emerald-800 dark:text-emerald-300"
+            : "btn btn-primary"
         }
       >
         {following ? "Following (click to unfollow)" : "Follow this sector"}

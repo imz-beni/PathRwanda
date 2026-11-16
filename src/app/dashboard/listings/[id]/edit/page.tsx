@@ -35,7 +35,7 @@ export default async function EditListingPage({ params }: { params: Promise<{ id
       <Link href="/dashboard/listings" className="text-sm underline">
         My listings
       </Link>
-      <h1 className="mt-3 mb-6 text-2xl font-semibold">Edit listing</h1>
+      <h1 className="mt-3 mb-6 text-3xl font-semibold">Edit listing</h1>
       <ListingForm
         action={updateListing.bind(null, listing.id)}
         sectors={sectors}
