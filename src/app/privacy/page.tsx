@@ -29,7 +29,8 @@ export default function PrivacyPage() {
         <li>
           <span className="font-medium">If you are a young user:</span> the sectors you follow, the
           skills you tick on your profile, the courses you mark as started or completed, and the
-          opportunities you save.
+          opportunities you save. If you choose to tell us, also your district and your highest
+          level of education.
         </li>
         <li>
           <span className="font-medium">If you represent an organization:</span> its name, type and
