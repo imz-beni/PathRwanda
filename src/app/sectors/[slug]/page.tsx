@@ -45,7 +45,7 @@ export default async function SectorPage({ params }: Props) {
       <Link href="/sectors" className="text-sm underline">
         All sectors
       </Link>
-      <h1 className="mt-3 mb-2 text-2xl font-semibold">{sector.name}</h1>
+      <h1 className="mt-3 mb-2 text-3xl font-semibold">{sector.name}</h1>
       <p className="mb-4 text-zinc-600 dark:text-zinc-400">{sector.overview}</p>
       <div className="mb-8">
         <FollowButton
@@ -57,7 +57,7 @@ export default async function SectorPage({ params }: Props) {
       </div>
 
       {sector.status === "COMING_SOON" ? (
-        <p className="rounded-md bg-zinc-100 p-4 dark:bg-zinc-900">
+        <p className="notice">
           We are still building this sector. You can follow it to show your interest. Agritech is
           available now.
         </p>
@@ -69,10 +69,7 @@ export default async function SectorPage({ params }: Props) {
             </h2>
             <ul className="flex flex-col gap-3">
               {sector.pathways.map((pathway) => (
-                <li
-                  key={pathway.id}
-                  className="rounded-lg border border-zinc-200 p-4 dark:border-zinc-800"
-                >
+                <li key={pathway.id} className="card p-4">
                   <h3 className="font-medium">{pathway.title}</h3>
                   <p className="text-sm text-zinc-600 dark:text-zinc-400">{pathway.description}</p>
                   {pathway.incomeNote && (
@@ -95,10 +92,7 @@ export default async function SectorPage({ params }: Props) {
             </h2>
             <ul className="flex flex-wrap gap-2">
               {sector.skills.map((skill) => (
-                <li
-                  key={skill.id}
-                  className="rounded-full bg-zinc-100 px-3 py-1 text-sm dark:bg-zinc-800"
-                >
+                <li key={skill.id} className="chip">
                   {skill.name}
                 </li>
               ))}

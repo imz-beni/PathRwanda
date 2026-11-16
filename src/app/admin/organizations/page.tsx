@@ -23,10 +23,7 @@ function StatusButton({
   return (
     <form action={action}>
       <input type="hidden" name="organizationId" value={organizationId} />
-      <button
-        type="submit"
-        className="rounded border border-zinc-300 px-3 py-1 text-sm dark:border-zinc-700"
-      >
+      <button type="submit" className="btn btn-secondary btn-sm">
         {label}
       </button>
     </form>
@@ -45,22 +42,17 @@ export default async function AdminOrganizationsPage() {
       <Link href="/admin" className="text-sm underline">
         Administration
       </Link>
-      <h1 className="mt-3 mb-6 text-2xl font-semibold">Organizations</h1>
+      <h1 className="mt-3 mb-6 text-3xl font-semibold">Organizations</h1>
 
       {organizations.length === 0 ? (
         <p className="text-zinc-600 dark:text-zinc-400">No organizations have registered yet.</p>
       ) : (
         <ul className="flex flex-col gap-3">
           {organizations.map((org) => (
-            <li
-              key={org.id}
-              className="flex flex-col gap-2 rounded-lg border border-zinc-200 p-4 dark:border-zinc-800"
-            >
+            <li key={org.id} className="flex flex-col gap-2 card p-4">
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <h2 className="font-medium">{org.name}</h2>
-                <span className="rounded-full bg-zinc-100 px-2 py-0.5 text-xs dark:bg-zinc-800">
-                  {org.status}
-                </span>
+                <span className="badge">{org.status}</span>
               </div>
               <p className="text-sm text-zinc-600 dark:text-zinc-400">
                 {TYPE_LABEL[org.type]} · {org.owner.name} ({org.owner.email})

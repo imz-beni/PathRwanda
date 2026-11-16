@@ -23,7 +23,7 @@ export function FormField({ label, name, errors, hint, ...input }: Props) {
           [errors?.length ? errorId : null, hint ? hintId : null].filter(Boolean).join(" ") ||
           undefined
         }
-        className="rounded-md border border-zinc-300 bg-transparent px-3 py-2 text-base dark:border-zinc-700"
+        className="input"
         {...input}
       />
       {hint && (

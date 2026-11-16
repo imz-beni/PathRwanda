@@ -32,13 +32,13 @@ export default async function SavedPage() {
 
   return (
     <main className="mx-auto w-full max-w-3xl flex-1 px-4 py-10">
-      <h1 className="mb-2 text-2xl font-semibold">Saved opportunities</h1>
+      <h1 className="mb-2 text-3xl font-semibold">Saved opportunities</h1>
       <p className="mb-6 text-zinc-600 dark:text-zinc-400">
         Opportunities you saved to come back to. Open one to remove it from this list.
       </p>
 
       {saved.length === 0 ? (
-        <p className="rounded-md bg-zinc-100 p-4 dark:bg-zinc-900">
+        <p className="notice">
           You have not saved anything yet. See what is{" "}
           <Link href="/recommendations" className="font-medium underline">
             recommended for you

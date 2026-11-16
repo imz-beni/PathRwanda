@@ -54,7 +54,7 @@ export default async function MetricsPage() {
       <Link href="/admin" className="text-sm underline">
         Administration
       </Link>
-      <h1 className="mt-3 mb-2 text-2xl font-semibold">Results</h1>
+      <h1 className="mt-3 mb-2 text-3xl font-semibold">Results</h1>
       <p className="mb-6 text-zinc-600 dark:text-zinc-400">
         How PathRwanda is doing against the targets set for the first version. Each young user is
         counted once per row, however many times they did it. Demo accounts are not counted.
@@ -65,16 +65,13 @@ export default async function MetricsPage() {
           Hypothesis targets
         </h2>
         {youth === 0 && (
-          <p className="mb-3 rounded-md bg-zinc-100 p-3 text-sm dark:bg-zinc-900">
+          <p className="mb-3 notice text-sm">
             No young users have registered yet, so there is nothing to measure.
           </p>
         )}
         <ul className="flex flex-col gap-4">
           {results.map((result) => (
-            <li
-              key={result.key}
-              className="rounded-lg border border-zinc-200 p-4 dark:border-zinc-800"
-            >
+            <li key={result.key} className="card p-4">
               <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
                 <h3 className="font-medium">{result.label}</h3>
                 <span
@@ -119,10 +116,7 @@ export default async function MetricsPage() {
         </h2>
         <dl className="grid gap-3 sm:grid-cols-2">
           {totals.map((total) => (
-            <div
-              key={total.label}
-              className="rounded-lg border border-zinc-200 p-4 dark:border-zinc-800"
-            >
+            <div key={total.label} className="card p-4">
               <dt className="text-sm text-zinc-600 dark:text-zinc-400">{total.label}</dt>
               <dd className="text-2xl font-semibold">{total.value}</dd>
             </div>

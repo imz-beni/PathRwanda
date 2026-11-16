@@ -53,10 +53,7 @@ function ListingButton({
   return (
     <form action={action}>
       <input type="hidden" name="listingId" value={listingId} />
-      <button
-        type="submit"
-        className="rounded border border-zinc-300 px-3 py-1 text-sm dark:border-zinc-700"
-      >
+      <button type="submit" className="btn btn-secondary btn-sm">
         {label}
       </button>
     </form>
@@ -96,11 +93,8 @@ export default async function AdminListingsPage({ searchParams }: { searchParams
         Administration
       </Link>
       <div className="mt-3 mb-6 flex flex-wrap items-center justify-between gap-2">
-        <h1 className="text-2xl font-semibold">Listings</h1>
-        <Link
-          href="/admin/listings/import"
-          className="rounded-md bg-emerald-700 px-3 py-1 text-sm font-medium text-white hover:bg-emerald-800"
-        >
+        <h1 className="text-3xl font-semibold">Listings</h1>
+        <Link href="/admin/listings/import" className="btn btn-primary btn-sm">
           Import from CSV
         </Link>
       </div>
@@ -108,20 +102,11 @@ export default async function AdminListingsPage({ searchParams }: { searchParams
       <form method="get" className="mb-6 grid gap-3 sm:grid-cols-4">
         <label className="flex flex-col gap-1 text-sm sm:col-span-2">
           <span className="font-medium">Search title or organization</span>
-          <input
-            type="search"
-            name="q"
-            defaultValue={query}
-            className="rounded-md border border-zinc-300 bg-transparent px-3 py-2 dark:border-zinc-700"
-          />
+          <input type="search" name="q" defaultValue={query} className="input" />
         </label>
         <label className="flex flex-col gap-1 text-sm">
           <span className="font-medium">Status</span>
-          <select
-            name="status"
-            defaultValue={statusFilter ?? ""}
-            className="rounded-md border border-zinc-300 bg-transparent px-3 py-2 dark:border-zinc-700"
-          >
+          <select name="status" defaultValue={statusFilter ?? ""} className="input">
             <option value="">All statuses</option>
             {STATUSES.map((s) => (
               <option key={s} value={s}>
@@ -131,10 +116,7 @@ export default async function AdminListingsPage({ searchParams }: { searchParams
           </select>
         </label>
         <div className="flex items-end">
-          <button
-            type="submit"
-            className="w-full rounded-md bg-emerald-700 px-4 py-2 font-medium text-white hover:bg-emerald-800"
-          >
+          <button type="submit" className="btn btn-primary w-full">
             Search
           </button>
         </div>
@@ -148,10 +130,7 @@ export default async function AdminListingsPage({ searchParams }: { searchParams
             const shown = displayStatus(listing, now);
             const openReports = listing._count.reports;
             return (
-              <li
-                key={listing.id}
-                className="flex flex-col gap-2 rounded-lg border border-zinc-200 p-4 dark:border-zinc-800"
-              >
+              <li key={listing.id} className="flex flex-col gap-2 card p-4">
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <h2 className="font-medium">
                     {shown === "REMOVED" ? (

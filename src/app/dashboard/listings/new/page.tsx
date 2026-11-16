@@ -23,7 +23,7 @@ export default async function NewListingPage() {
       <Link href="/dashboard/listings" className="text-sm underline">
         My listings
       </Link>
-      <h1 className="mt-3 mb-6 text-2xl font-semibold">Create a listing</h1>
+      <h1 className="mt-3 mb-6 text-3xl font-semibold">Create a listing</h1>
       <ListingForm action={createListing} sectors={sectors} submitLabel="Publish listing" />
     </main>
   );

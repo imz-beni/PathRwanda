@@ -22,7 +22,7 @@ export default async function EditCoursePage({
       <Link href={`/admin/sectors/${course.sector.slug}`} className="text-sm underline">
         {course.sector.name}
       </Link>
-      <h1 className="mt-3 mb-6 text-2xl font-semibold">Edit course</h1>
+      <h1 className="mt-3 mb-6 text-3xl font-semibold">Edit course</h1>
       <CourseForm
         action={updateCourse.bind(null, course.id)}
         submitLabel="Save changes"

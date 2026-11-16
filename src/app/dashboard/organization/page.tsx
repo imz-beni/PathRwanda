@@ -16,7 +16,7 @@ export default async function OrganizationPage() {
       <Link href="/dashboard" className="text-sm underline">
         Dashboard
       </Link>
-      <h1 className="mt-3 mb-6 text-2xl font-semibold">Organization profile</h1>
+      <h1 className="mt-3 mb-6 text-3xl font-semibold">Organization profile</h1>
       <OrganizationForm name={organization.name} website={organization.website ?? ""} />
     </main>
   );

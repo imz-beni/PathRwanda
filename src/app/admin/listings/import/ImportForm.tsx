@@ -62,7 +62,7 @@ export function ImportForm({ organizations }: Props) {
           name="organizationId"
           required
           defaultValue=""
-          className="rounded-md border border-zinc-300 bg-transparent px-3 py-2 text-base dark:border-zinc-700"
+          className="input"
         >
           <option value="" disabled>
             Choose an organization
