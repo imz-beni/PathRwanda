@@ -158,7 +158,7 @@ This is a prototype. These parts of the design are not built yet:
 - **Email alerts for new matches.** Recommendations are shown in the app only.
 - **Password reset by email.** An administrator has to help a user who forgets their password.
 - **Sectors other than Agritech** are listed as "coming soon".
-- **Demo data.** The seeded listings are made up for testing and say so. Only a few real courses are included.
+- **Demo data.** The seeded listings are made up for testing and say so. The 12 starter courses are real and were checked by hand, but they are a small sample.
 
 ## How each part works
 
