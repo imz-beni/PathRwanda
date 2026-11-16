@@ -15,7 +15,7 @@ export async function Header() {
 
   return (
     <header className="z-20 border-b border-line bg-surface/90 backdrop-blur sm:sticky sm:top-0">
-      <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-x-4 gap-y-2 px-4 py-2.5">
+      <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-4 gap-y-2 px-4 py-2.5">
         <Link href="/" className="flex items-center gap-2 text-lg font-semibold tracking-tight">
           <Logo />
           {appName}

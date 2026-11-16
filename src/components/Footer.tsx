@@ -1,24 +1,26 @@
 import Link from "next/link";
+import { Hills } from "@/components/Hills";
 import { Logo } from "@/components/Logo";
 import { strings } from "@/lib/strings";
 
-const linkClass = "hover:text-foreground hover:underline";
+const linkClass = "forest-muted hover:text-white hover:underline";
 
 export function Footer() {
   const { footer, nav, appName } = strings;
   return (
-    <footer className="mt-auto border-t border-line bg-surface">
-      <div className="mx-auto grid max-w-5xl gap-8 px-4 py-10 text-sm text-muted sm:grid-cols-[2fr_1fr_1fr]">
-        <div className="flex flex-col gap-3">
-          <p className="flex items-center gap-2 text-base font-semibold text-foreground">
-            <Logo className="h-6 w-6" />
+    <footer className="forest relative mt-auto overflow-hidden">
+      <Hills />
+      <div className="relative mx-auto grid max-w-6xl gap-10 px-4 py-14 text-sm sm:grid-cols-[2fr_1fr_1fr]">
+        <div className="flex max-w-md flex-col gap-4">
+          <p className="flex items-center gap-2 text-lg font-semibold">
+            <Logo className="h-7 w-7" />
             {appName}
           </p>
-          <p>{footer.tagline}</p>
-          <p className="text-xs leading-relaxed">{footer.privacy}</p>
+          <p className="font-display text-2xl leading-snug">{footer.tagline}</p>
+          <p className="forest-muted text-xs leading-relaxed">{footer.privacy}</p>
         </div>
-        <nav aria-label="Explore" className="flex flex-col gap-2">
-          <p className="font-semibold text-foreground">{footer.explore}</p>
+        <nav aria-label="Explore" className="flex flex-col gap-2.5">
+          <p className="eyebrow mb-1">{footer.explore}</p>
           <Link href="/sectors" className={linkClass}>
             {nav.sectors}
           </Link>
@@ -29,8 +31,8 @@ export function Footer() {
             {nav.register}
           </Link>
         </nav>
-        <nav aria-label="Support" className="flex flex-col gap-2">
-          <p className="font-semibold text-foreground">{footer.support}</p>
+        <nav aria-label="Support" className="flex flex-col gap-2.5">
+          <p className="eyebrow mb-1">{footer.support}</p>
           <Link href="/help" className={linkClass}>
             {footer.help}
           </Link>
