@@ -11,6 +11,10 @@ type Props = { params: Promise<{ slug: string }> };
 
 export const metadata = { title: "Edit sector | PathRwanda" };
 
+// "Re-check all links" waits up to 10 seconds per course, so give the page's actions more
+// time than a hosting platform's short default.
+export const maxDuration = 60;
+
 function CourseButton({
   action,
   courseId,
