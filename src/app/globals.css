@@ -1,26 +1,147 @@
 @import "tailwindcss";
 
+/* The shared look of PathRwanda. Pages use the small set of classes defined at the bottom
+   (btn, card, badge, chip, input, notice) so buttons and cards look the same everywhere. */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f7f8f7;
+  --foreground: #18181b;
+  --surface: #ffffff;
+  --border: #e4e4e7;
+  --muted: #52525b;
+  --brand: #047857;
+  --brand-strong: #065f46;
+  --brand-soft: #ecfdf5;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-surface: var(--surface);
+  --color-line: var(--border);
+  --color-muted: var(--muted);
+  --color-brand: var(--brand);
+  --color-brand-strong: var(--brand-strong);
+  --color-brand-soft: var(--brand-soft);
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
+    --background: #0b0d0c;
     --foreground: #ededed;
+    --surface: #151816;
+    --border: #2a2e2b;
+    --muted: #a1a1aa;
+    --brand: #10b981;
+    --brand-strong: #34d399;
+    --brand-soft: #0c2a20;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3 {
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+  }
+
+  a.underline,
+  a .underline {
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+  }
+
+  /* One clear keyboard focus style everywhere. */
+  :focus-visible {
+    outline: 2px solid var(--brand);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  input[type="checkbox"],
+  input[type="radio"] {
+    accent-color: var(--brand);
+    width: 1rem;
+    height: 1rem;
+  }
+
+  summary {
+    cursor: pointer;
+  }
+}
+
+@layer components {
+  /* Buttons. "btn" sets the shape; add btn-primary or btn-secondary, and btn-sm for small. */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-60;
+  }
+  .btn-sm {
+    @apply rounded-md px-3 py-1.5;
+  }
+  .btn-lg {
+    @apply px-5 py-3 text-base;
+  }
+  .btn-primary {
+    background: #047857;
+    color: #ffffff;
+    @apply shadow-sm hover:bg-emerald-800;
+  }
+  .btn-secondary {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--foreground);
+    @apply hover:border-zinc-400 dark:hover:border-zinc-500;
+  }
+
+  /* Cards: a white panel on the grey page. card-link adds a hover state for clickable cards. */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    @apply rounded-xl shadow-xs;
+  }
+  .card-link {
+    @apply transition hover:-translate-y-0.5 hover:border-emerald-600 hover:shadow-md;
+  }
+
+  /* Small labels. */
+  .badge {
+    @apply inline-flex items-center rounded-full bg-zinc-100 px-2.5 py-0.5 text-xs font-medium whitespace-nowrap text-zinc-700 dark:bg-zinc-800 dark:text-zinc-200;
+  }
+  .chip {
+    background: var(--brand-soft);
+    color: var(--brand-strong);
+    @apply rounded-full px-3 py-1 text-sm font-medium;
+  }
+
+  /* Text fields and dropdowns. */
+  .input {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    @apply rounded-lg px-3 py-2 text-base transition-colors;
+  }
+  .input:focus {
+    border-color: var(--brand);
+  }
+
+  /* A quiet box for empty states and information. */
+  .notice {
+    background: var(--surface);
+    border: 1px dashed var(--border);
+    @apply rounded-xl p-5;
+  }
+
+  .eyebrow {
+    color: var(--brand);
+    @apply text-sm font-semibold tracking-wide uppercase;
+  }
 }
