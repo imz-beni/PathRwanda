@@ -106,17 +106,13 @@ export function RegisterForm() {
         )}
       </div>
 
-      <p className="text-sm text-zinc-600 dark:text-zinc-400">
-        We only ask for what we need to run your account.{" "}
+      <p className="text-sm text-zinc-500">
+        We collect your name and email to run your account and match you to opportunities. We do not
+        share them publicly.{" "}
         <Link href="/privacy" className="font-medium underline">
           See how we use your data
         </Link>
         .
-      </p>
-
-      <p className="text-sm text-zinc-500">
-        We collect your name and email to run your account and match you to opportunities. We do not
-        share them publicly.
       </p>
 
       <SubmitButton pendingText="Creating account...">Create account</SubmitButton>
