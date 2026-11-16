@@ -36,6 +36,9 @@ model User {
   ageConfirmedAt DateTime?
   // Set by an admin to block sign-in; the account and its history are kept.
   deactivatedAt  DateTime?
+  // When a young user last marked their recommendations as seen. Listings published after
+  // this that match them closely are shown as new (FR-5.7).
+  matchesSeenAt  DateTime?
   createdAt      DateTime  @default(now())
   updatedAt      DateTime  @updatedAt
 
