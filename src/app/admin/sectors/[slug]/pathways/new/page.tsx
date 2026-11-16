@@ -21,7 +21,7 @@ export default async function NewPathwayPage({ params }: { params: Promise<{ slu
       <Link href={`/admin/sectors/${sector.slug}/pathways`} className="text-sm underline">
         {sector.name} pathways
       </Link>
-      <h1 className="mt-3 mb-6 text-2xl font-semibold">Add pathway</h1>
+      <h1 className="mt-3 mb-6 text-3xl font-semibold">Add pathway</h1>
       <PathwayForm
         action={createPathway.bind(null, sector.id)}
         skills={sector.skills}

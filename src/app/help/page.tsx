@@ -199,7 +199,7 @@ const sections: { id: string; title: string; questions: Question[] }[] = [
 export default function HelpPage() {
   return (
     <main className="mx-auto w-full max-w-2xl flex-1 px-4 py-10">
-      <h1 className="mb-2 text-2xl font-semibold">Help</h1>
+      <h1 className="mb-2 text-3xl font-semibold">Help</h1>
       <p className="mb-6 text-zinc-600 dark:text-zinc-400">
         Answers to common questions. Choose a question to open it.
       </p>
@@ -211,10 +211,7 @@ export default function HelpPage() {
           </h2>
           <div className="flex flex-col gap-2">
             {section.questions.map((item) => (
-              <details
-                key={item.q}
-                className="rounded-lg border border-zinc-200 px-4 py-3 dark:border-zinc-800"
-              >
+              <details key={item.q} className="card px-4 py-3">
                 <summary className="cursor-pointer font-medium">{item.q}</summary>
                 <p className="mt-2 text-zinc-700 dark:text-zinc-300">{item.a}</p>
               </details>

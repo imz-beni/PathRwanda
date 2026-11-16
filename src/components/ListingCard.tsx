@@ -19,7 +19,7 @@ type Props = {
 
 export function ListingCard({ href, listing, badge, children }: Props) {
   return (
-    <li className="flex flex-col gap-2 rounded-lg border border-zinc-200 p-4 dark:border-zinc-800">
+    <li className="flex flex-col gap-2 card p-4">
       <div className="flex flex-wrap items-center justify-between gap-2">
         <h2 className="font-medium">
           <Link href={href} className="underline">
@@ -28,9 +28,7 @@ export function ListingCard({ href, listing, badge, children }: Props) {
         </h2>
         <span className="flex flex-wrap items-center gap-2">
           {badge}
-          <span className="rounded-full bg-zinc-100 px-2 py-0.5 text-xs dark:bg-zinc-800">
-            {TYPE_LABEL[listing.type]}
-          </span>
+          <span className="badge">{TYPE_LABEL[listing.type]}</span>
         </span>
       </div>
       <p className="text-sm text-zinc-600 dark:text-zinc-400">

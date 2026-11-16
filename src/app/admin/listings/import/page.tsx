@@ -41,7 +41,7 @@ export default async function ImportListingsPage() {
       <Link href="/admin/listings" className="text-sm underline">
         All listings
       </Link>
-      <h1 className="mt-3 mb-2 text-2xl font-semibold">Import listings</h1>
+      <h1 className="mt-3 mb-2 text-3xl font-semibold">Import listings</h1>
       <p className="mb-6 text-sm text-zinc-600 dark:text-zinc-400">
         Add many listings at once from a CSV file, which any spreadsheet program can save. If any
         row has a problem, nothing is imported and you see what to fix.

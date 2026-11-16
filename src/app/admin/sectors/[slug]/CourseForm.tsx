@@ -68,7 +68,7 @@ export function CourseForm({ action, defaults, submitLabel }: Props) {
           defaultValue={values?.description ?? defaults?.description}
           aria-invalid={errors?.description?.length ? true : undefined}
           aria-describedby={errors?.description?.length ? "description-error" : undefined}
-          className="rounded-md border border-zinc-300 bg-transparent px-3 py-2 text-base dark:border-zinc-700"
+          className="input"
         />
         {errors?.description?.length ? (
           <p id="description-error" role="alert" className="text-sm text-red-600 dark:text-red-400">

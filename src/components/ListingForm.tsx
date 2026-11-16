@@ -52,7 +52,7 @@ function Textarea({
         rows={rows}
         defaultValue={defaultValue}
         aria-invalid={errors?.length ? true : undefined}
-        className="rounded-md border border-zinc-300 bg-transparent px-3 py-2 dark:border-zinc-700"
+        className="input"
       />
       {errors?.length ? (
         <p role="alert" className="text-sm text-red-600 dark:text-red-400">
@@ -132,12 +132,7 @@ function ListingFormBody({
         <label htmlFor="type" className="text-sm font-medium">
           Type
         </label>
-        <select
-          id="type"
-          name="type"
-          defaultValue={text("type") ?? ""}
-          className="rounded-md border border-zinc-300 bg-transparent px-3 py-2 dark:border-zinc-700"
-        >
+        <select id="type" name="type" defaultValue={text("type") ?? ""} className="input">
           <option value="" disabled>
             Choose one
           </option>

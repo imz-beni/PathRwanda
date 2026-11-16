@@ -32,10 +32,7 @@ function UserButton({
   return (
     <form action={action}>
       <input type="hidden" name="userId" value={userId} />
-      <button
-        type="submit"
-        className="rounded border border-zinc-300 px-3 py-1 text-sm dark:border-zinc-700"
-      >
+      <button type="submit" className="btn btn-secondary btn-sm">
         {label}
       </button>
     </form>
@@ -70,25 +67,16 @@ export default async function AdminUsersPage({ searchParams }: { searchParams: S
       <Link href="/admin" className="text-sm underline">
         Administration
       </Link>
-      <h1 className="mt-3 mb-6 text-2xl font-semibold">Users</h1>
+      <h1 className="mt-3 mb-6 text-3xl font-semibold">Users</h1>
 
       <form method="get" className="mb-6 grid gap-3 sm:grid-cols-4">
         <label className="flex flex-col gap-1 text-sm sm:col-span-2">
           <span className="font-medium">Search name or email</span>
-          <input
-            type="search"
-            name="q"
-            defaultValue={query}
-            className="rounded-md border border-zinc-300 bg-transparent px-3 py-2 dark:border-zinc-700"
-          />
+          <input type="search" name="q" defaultValue={query} className="input" />
         </label>
         <label className="flex flex-col gap-1 text-sm">
           <span className="font-medium">Role</span>
-          <select
-            name="role"
-            defaultValue={roleFilter ?? ""}
-            className="rounded-md border border-zinc-300 bg-transparent px-3 py-2 dark:border-zinc-700"
-          >
+          <select name="role" defaultValue={roleFilter ?? ""} className="input">
             <option value="">All roles</option>
             {ROLES.map((r) => (
               <option key={r} value={r}>
@@ -98,10 +86,7 @@ export default async function AdminUsersPage({ searchParams }: { searchParams: S
           </select>
         </label>
         <div className="flex items-end">
-          <button
-            type="submit"
-            className="w-full rounded-md bg-emerald-700 px-4 py-2 font-medium text-white hover:bg-emerald-800"
-          >
+          <button type="submit" className="btn btn-primary w-full">
             Search
           </button>
         </div>
@@ -112,16 +97,11 @@ export default async function AdminUsersPage({ searchParams }: { searchParams: S
       ) : (
         <ul className="flex flex-col gap-3">
           {users.map((user) => (
-            <li
-              key={user.id}
-              className="flex flex-col gap-2 rounded-lg border border-zinc-200 p-4 dark:border-zinc-800"
-            >
+            <li key={user.id} className="flex flex-col gap-2 card p-4">
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <h2 className="font-medium">{user.name}</h2>
                 <div className="flex gap-2">
-                  <span className="rounded-full bg-zinc-100 px-2 py-0.5 text-xs dark:bg-zinc-800">
-                    {ROLE_LABEL[user.role]}
-                  </span>
+                  <span className="badge">{ROLE_LABEL[user.role]}</span>
                   {user.deactivatedAt && (
                     <span className="rounded-full bg-red-100 px-2 py-0.5 text-xs text-red-800">
                       Deactivated

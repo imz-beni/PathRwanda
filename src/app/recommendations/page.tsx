@@ -65,14 +65,14 @@ export default async function RecommendationsPage() {
 
   return (
     <main className="mx-auto w-full max-w-3xl flex-1 px-4 py-10">
-      <h1 className="mb-2 text-2xl font-semibold">Recommended for you</h1>
+      <h1 className="mb-2 text-3xl font-semibold">Recommended for you</h1>
       <p className="mb-6 text-zinc-600 dark:text-zinc-400">
         Open opportunities that fit the sectors you follow, your skills and your courses. This list
         updates whenever those change.
       </p>
 
       {needsInputs ? (
-        <div className="rounded-md bg-zinc-100 p-4 dark:bg-zinc-900">
+        <div className="notice">
           <p className="mb-2 font-medium">Tell us a little about you to get recommendations.</p>
           <ul className="list-disc pl-5 text-sm">
             <li>
@@ -91,7 +91,7 @@ export default async function RecommendationsPage() {
           </ul>
         </div>
       ) : matches.length === 0 ? (
-        <p className="rounded-md bg-zinc-100 p-4 dark:bg-zinc-900">
+        <p className="notice">
           No open opportunities match you right now. New ones are added often, so check again soon,
           or{" "}
           <Link href="/opportunities" className="font-medium underline">

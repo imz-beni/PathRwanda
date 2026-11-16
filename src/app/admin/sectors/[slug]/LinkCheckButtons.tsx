@@ -13,11 +13,7 @@ const RESULT_TEXT = {
 function CheckButton({ label }: { label: string }) {
   const { pending } = useFormStatus();
   return (
-    <button
-      type="submit"
-      disabled={pending}
-      className="rounded border border-zinc-300 px-3 py-1 text-sm disabled:opacity-60 dark:border-zinc-700"
-    >
+    <button type="submit" disabled={pending} className="btn btn-secondary btn-sm">
       {pending ? "Checking..." : label}
     </button>
   );

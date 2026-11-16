@@ -23,7 +23,7 @@ export default async function ProgressPage() {
 
   return (
     <main className="mx-auto w-full max-w-3xl flex-1 px-4 py-10">
-      <h1 className="mb-2 text-2xl font-semibold">My progress</h1>
+      <h1 className="mb-2 text-3xl font-semibold">My progress</h1>
 
       <section aria-labelledby="following" className="mb-8">
         <h2 id="following" className="mb-2 text-lg font-medium">
@@ -40,10 +40,7 @@ export default async function ProgressPage() {
           <ul className="flex flex-wrap gap-2">
             {follows.map((f) => (
               <li key={f.sectorId}>
-                <Link
-                  href={`/sectors/${f.sector.slug}`}
-                  className="rounded-full bg-zinc-100 px-3 py-1 text-sm dark:bg-zinc-800"
-                >
+                <Link href={`/sectors/${f.sector.slug}`} className="chip">
                   {f.sector.name}
                 </Link>
               </li>

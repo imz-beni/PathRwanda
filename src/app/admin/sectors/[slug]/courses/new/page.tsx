@@ -18,7 +18,7 @@ export default async function NewCoursePage({ params }: { params: Promise<{ slug
       <Link href={`/admin/sectors/${sector.slug}`} className="text-sm underline">
         {sector.name}
       </Link>
-      <h1 className="mt-3 mb-6 text-2xl font-semibold">Add course</h1>
+      <h1 className="mt-3 mb-6 text-3xl font-semibold">Add course</h1>
       <CourseForm action={createCourse.bind(null, sector.id)} submitLabel="Add course" />
     </main>
   );
